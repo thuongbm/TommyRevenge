@@ -3,19 +3,24 @@ using UnityEngine;
 public class EnemyAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator enemyAnimator;
+    private EnemyHealth enemyHealth;
+    private EnemyState enemyState;
+
+    void Awake()
+    {
+        if (enemyAnimator == null) enemyAnimator = GetComponentInChildren<Animator>();
+        enemyHealth = GetComponent<EnemyHealth>();
+        enemyState = GetComponent<EnemyState>();
+    }
 
     void Update()
     {
-        if (EnemyState.Instance.isWaiting)
+        if (enemyState != null)
         {
-            enemyAnimator.SetBool("isRunning", false);
-        }
-        else
-        {
-            enemyAnimator.SetBool("isRunning", true);
+            enemyAnimator.SetBool("isRunning", !enemyState.isWaiting);
         }
 
-        if (EnemyHealth.Instance.isDieing)
+        if (enemyHealth != null && enemyHealth.isDieing)
         {
             enemyAnimator.SetBool("isDie", true);
         }

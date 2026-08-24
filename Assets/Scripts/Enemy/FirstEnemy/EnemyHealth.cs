@@ -8,6 +8,15 @@ public class EnemyHealth : MonoBehaviour
     private float currentHealth;
     public bool isDieing;
 
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        Instance = this;
+    }
+
     void Start()
     {
         currentHealth = maxHealth;

@@ -16,8 +16,8 @@ TagManager:
   - Player
   - Wall
   - Enemy
-  - 
-  - 
+  - Leggs
+  - Bullet
   - 
   - 
   - 
@@ -47,6 +47,12 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 3788002861
+    locked: 0
+  - name: Bullet
+    uniqueID: 1423938579
+    locked: 0
+  - name: Leggs
+    uniqueID: 127227285
     locked: 0
   - name: Player
     uniqueID: 92355671
