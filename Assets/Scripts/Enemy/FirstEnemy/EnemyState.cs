@@ -1,12 +1,29 @@
+using System;
+using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class EnemyState : MonoBehaviour
 {
+    public static EnemyState Instance { get; set; }
     [SerializeField] private Transform[] patrolPoint;
     private Transform currentPatrolPoint;
     private int currentPatrolIndex;
     [SerializeField] private float speed = 3f;
     [SerializeField] private float rotationSpeed = 720f;
+    [SerializeField] private float waitTimePoint = 1.5f;
+    private float waitTimer;
+    public bool isWaiting;
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     void Start()
     {
@@ -14,12 +31,24 @@ public class EnemyState : MonoBehaviour
         {
             currentPatrolIndex = 0;
             currentPatrolPoint = patrolPoint[currentPatrolIndex];
-        }
+        } 
     }
 
     void Update()
     {
         if (currentPatrolPoint == null) return;
+
+        if (isWaiting)
+        {
+            waitTimer -= Time.deltaTime;
+            if (waitTimer < 0)
+            {
+                isWaiting = false;
+                currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoint.Length;
+                currentPatrolPoint = patrolPoint[currentPatrolIndex];
+            }
+            return;
+        }
 
         Vector3 targetPos = new Vector3(currentPatrolPoint.position.x, currentPatrolPoint.position.y, transform.position.z);
         transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
@@ -40,8 +69,8 @@ public class EnemyState : MonoBehaviour
 
         if (Vector2.Distance(transform.position, targetPos) < 0.2f)
         {
-            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoint.Length;
-            currentPatrolPoint = patrolPoint[currentPatrolIndex];
+            isWaiting = true;
+            waitTimer = waitTimePoint;
         }
     }
 }
