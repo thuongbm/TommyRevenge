@@ -16,7 +16,7 @@ public class EnemyHealth : MonoBehaviour
         }
         Instance = this;
     }
-
+    
     void Start()
     {
         currentHealth = maxHealth;
