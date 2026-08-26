@@ -1,16 +1,40 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerShooting : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static PlayerShooting Instance { get; private set; }
+
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firePoint;
+    
+    // Spread angles on the 2D Z-axis
+    private float[] spreadAngles = { -12f, 0f, 12f };
+
+    void Awake()
     {
-        
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Shoot();
+        }
+    }
+
+    public void Shoot()
+    {
+        foreach (float angle in spreadAngles)
+        {
+            Quaternion rotation = firePoint.rotation * Quaternion.Euler(0, 0, angle);
+            Instantiate(bulletPrefab, firePoint.position, rotation);
+        }
     }
 }
