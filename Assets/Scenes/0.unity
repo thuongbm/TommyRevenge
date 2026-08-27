@@ -439,6 +439,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShooting
   bulletPrefab: {fileID: 677261813}
   firePoint: {fileID: 1859465375}
+  bulletCasingPrefab: {fileID: 1653720552}
+  dropBulletCasingPoint: {fileID: 1011647180}
+  casingLifetime: 3
 --- !u!1 &325999828
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,7 +785,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1299840569
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -2050,7 +2053,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 000000002704df82573c810539fe794d2d56c8e1955595071394df54
+  m_ApplyToSortingLayers: 000000002704df82573c810539fe794d2d56c8e1955595071394df54a9da59c1
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -2242,6 +2245,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1794304423}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1011647179
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1011647180}
+  m_Layer: 7
+  m_Name: BulletCasingDropPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1011647180
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011647179}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.173, y: -0.063, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1254877353}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1051544936
 GameObject:
   m_ObjectHideFlags: 0
@@ -2307,6 +2341,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1859465375}
+  - {fileID: 1011647180}
   m_Father: {fileID: 315082968}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1254877354
@@ -2355,7 +2390,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 92355671
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -3500298161762141900, guid: 2d45db08bc35f6840a8ccf9e5a48e34a, type: 3}
@@ -2448,6 +2483,11 @@ Transform:
   - {fileID: 1961800499}
   m_Father: {fileID: 964770394}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1653720552 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7555752676977430462, guid: 57fa4e71ce51f2a4896c9025d734d916, type: 3}
+  m_PrefabInstance: {fileID: 8572449847068458891}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1794304422
 GameObject:
   m_ObjectHideFlags: 0
@@ -2594,7 +2634,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 127227285
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -5062398570502169423, guid: b4e225d7f49030444a1368bc7529eb22, type: 3}
@@ -5301,6 +5341,76 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 677261819}
   m_SourcePrefab: {fileID: 100100000, guid: cec28bcdd8e103b40a954a43f6b97476, type: 3}
+--- !u!1001 &8572449847068458891
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5787945322363565494, guid: 57fa4e71ce51f2a4896c9025d734d916, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693997189074442058, guid: 57fa4e71ce51f2a4896c9025d734d916, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693997189074442058, guid: 57fa4e71ce51f2a4896c9025d734d916, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693997189074442058, guid: 57fa4e71ce51f2a4896c9025d734d916, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693997189074442058, guid: 57fa4e71ce51f2a4896c9025d734d916, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693997189074442058, guid: 57fa4e71ce51f2a4896c9025d734d916, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693997189074442058, guid: 57fa4e71ce51f2a4896c9025d734d916, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693997189074442058, guid: 57fa4e71ce51f2a4896c9025d734d916, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693997189074442058, guid: 57fa4e71ce51f2a4896c9025d734d916, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693997189074442058, guid: 57fa4e71ce51f2a4896c9025d734d916, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693997189074442058, guid: 57fa4e71ce51f2a4896c9025d734d916, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7273926166365745692, guid: 57fa4e71ce51f2a4896c9025d734d916, type: 3}
+      propertyPath: bulletCasingPrefab
+      value: 
+      objectReference: {fileID: 1653720552}
+    - target: {fileID: 7273926166365745692, guid: 57fa4e71ce51f2a4896c9025d734d916, type: 3}
+      propertyPath: dropBulletCasingPoint
+      value: 
+      objectReference: {fileID: 1011647180}
+    - target: {fileID: 7555752676977430462, guid: 57fa4e71ce51f2a4896c9025d734d916, type: 3}
+      propertyPath: m_Name
+      value: BulletCasing
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7273926166365745692, guid: 57fa4e71ce51f2a4896c9025d734d916, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 57fa4e71ce51f2a4896c9025d734d916, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -5311,3 +5421,4 @@ SceneRoots:
   - {fileID: 964770394}
   - {fileID: 531990369}
   - {fileID: 2550437350104277784}
+  - {fileID: 8572449847068458891}

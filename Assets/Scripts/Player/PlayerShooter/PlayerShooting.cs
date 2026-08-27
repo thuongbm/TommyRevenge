@@ -5,13 +5,17 @@ public class PlayerShooting : MonoBehaviour
 {
     public static PlayerShooting Instance { get; private set; }
 
+    [Header("Shooting")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
-    
-    // Spread angles on the 2D Z-axis
-    private float[] spreadAngles = { -12f, 0f, 12f };
+    private readonly float[] spreadAngles = { -12f, 0f, 12f };
 
-    void Awake()
+    [Header("Casing")]
+    [SerializeField] private GameObject bulletCasingPrefab;
+    [SerializeField] private Transform dropBulletCasingPoint;
+    [SerializeField] private float casingLifetime = 3f;
+
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -21,7 +25,7 @@ public class PlayerShooting : MonoBehaviour
         Instance = this;
     }
 
-    void Update()
+    private void Update()
     {
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
@@ -35,6 +39,17 @@ public class PlayerShooting : MonoBehaviour
         {
             Quaternion rotation = firePoint.rotation * Quaternion.Euler(0, 0, angle);
             Instantiate(bulletPrefab, firePoint.position, rotation);
+        }
+
+        if (bulletCasingPrefab != null && dropBulletCasingPoint != null)
+        {
+            GameObject casing = Instantiate(
+                bulletCasingPrefab, 
+                dropBulletCasingPoint.position, 
+                dropBulletCasingPoint.rotation
+            );
+
+            Destroy(casing, casingLifetime);
         }
     }
 }

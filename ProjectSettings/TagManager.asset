@@ -7,6 +7,7 @@ TagManager:
   - map
   - Enemy
   - Bullet
+  - BulletCasing
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Enemy
   - Leggs
   - Bullet
-  - 
+  - BulletCasing
   - 
   - 
   - 
@@ -52,6 +53,9 @@ TagManager:
     locked: 0
   - name: Bullet
     uniqueID: 1423938579
+    locked: 0
+  - name: BulletCasing
+    uniqueID: 3243891369
     locked: 0
   - name: Leggs
     uniqueID: 127227285
