@@ -457,6 +457,7 @@ GameObject:
   - component: {fileID: 325999832}
   - component: {fileID: 325999834}
   - component: {fileID: 325999835}
+  - component: {fileID: 325999836}
   m_Layer: 9
   m_Name: FirstAI
   m_TagString: Enemy
@@ -667,6 +668,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationController
   enemyAnimator: {fileID: 325999833}
+--- !u!114 &325999836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 325999828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b11211983e35219479219dc2585dc231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FieldOfView2D
+  radius: 5
+  angle: 90
+  playerRef: {fileID: 315082965}
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 128
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  canSeePlayer: 0
 --- !u!1 &492398750
 GameObject:
   m_ObjectHideFlags: 0

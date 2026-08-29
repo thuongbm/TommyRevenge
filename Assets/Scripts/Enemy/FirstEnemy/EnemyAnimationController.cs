@@ -24,5 +24,10 @@ public class EnemyAnimationController : MonoBehaviour
         {
             enemyAnimator.SetBool("isDie", true);
         }
+
+        if (FieldOfView2D.Instance.canSeePlayer)
+        {
+            enemyAnimator.SetBool("isFiring", true);
+        }
     }
 }

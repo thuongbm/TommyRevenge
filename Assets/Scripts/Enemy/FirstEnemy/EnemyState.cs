@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -50,6 +51,12 @@ public class EnemyState : MonoBehaviour
             return;
         }
 
+        // bug
+        if (FieldOfView2D.Instance.canSeePlayer)
+        {
+           return;
+        }
+
         Vector3 targetPos = new Vector3(currentPatrolPoint.position.x, currentPatrolPoint.position.y, transform.position.z);
         transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
 
@@ -72,5 +79,10 @@ public class EnemyState : MonoBehaviour
             isWaiting = true;
             waitTimer = waitTimePoint;
         }
+    }
+
+    private void Holding()
+    {
+        
     }
 }
