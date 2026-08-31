@@ -1,18 +1,18 @@
-using System;
 using System.Collections;
-using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class EnemyState : MonoBehaviour
 {
-    public static EnemyState Instance { get; set; }
+    public static EnemyState Instance { get; private set; }
+
     [SerializeField] private Transform[] patrolPoint;
-    private Transform currentPatrolPoint;
-    private int currentPatrolIndex;
+    [SerializeField] private Transform playerTransform; 
     [SerializeField] private float speed = 3f;
     [SerializeField] private float rotationSpeed = 720f;
     [SerializeField] private float waitTimePoint = 1.5f;
+
+    private Transform currentPatrolPoint;
+    private int currentPatrolIndex;
     private float waitTimer;
     public bool isWaiting;
 
@@ -37,12 +37,23 @@ public class EnemyState : MonoBehaviour
 
     void Update()
     {
+        if (FieldOfView2D.Instance != null && FieldOfView2D.Instance.canSeePlayer)
+        {
+            if (playerTransform != null)
+            {
+                RotateTowards(playerTransform.position);
+            }
+
+            
+            return; 
+        }
+
         if (currentPatrolPoint == null) return;
 
         if (isWaiting)
         {
             waitTimer -= Time.deltaTime;
-            if (waitTimer < 0)
+            if (waitTimer <= 0f)
             {
                 isWaiting = false;
                 currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoint.Length;
@@ -51,16 +62,21 @@ public class EnemyState : MonoBehaviour
             return;
         }
 
-        // bug
-        if (FieldOfView2D.Instance.canSeePlayer)
-        {
-           return;
-        }
-
         Vector3 targetPos = new Vector3(currentPatrolPoint.position.x, currentPatrolPoint.position.y, transform.position.z);
         transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
 
-        Vector3 direction = targetPos - transform.position;
+        RotateTowards(targetPos);
+
+        if (Vector2.Distance(transform.position, targetPos) < 0.2f)
+        {
+            isWaiting = true;
+            waitTimer = waitTimePoint;
+        }
+    }
+
+    private void RotateTowards(Vector3 targetPosition)
+    {
+        Vector3 direction = targetPosition - transform.position;
 
         if (direction.sqrMagnitude > 0.001f)
         {
@@ -73,16 +89,5 @@ public class EnemyState : MonoBehaviour
                 rotationSpeed * Time.deltaTime
             );
         }
-
-        if (Vector2.Distance(transform.position, targetPos) < 0.2f)
-        {
-            isWaiting = true;
-            waitTimer = waitTimePoint;
-        }
-    }
-
-    private void Holding()
-    {
-        
     }
 }

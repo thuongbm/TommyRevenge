@@ -2,12 +2,20 @@ using UnityEngine;
 
 public class EnemyAnimationController : MonoBehaviour
 {
+    public static EnemyAnimationController Instance { get; set; }
     [SerializeField] private Animator enemyAnimator;
     private EnemyHealth enemyHealth;
     private EnemyState enemyState;
 
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
         if (enemyAnimator == null) enemyAnimator = GetComponentInChildren<Animator>();
         enemyHealth = GetComponent<EnemyHealth>();
         enemyState = GetComponent<EnemyState>();
@@ -24,10 +32,18 @@ public class EnemyAnimationController : MonoBehaviour
         {
             enemyAnimator.SetBool("isDie", true);
         }
+    }
 
-        if (FieldOfView2D.Instance.canSeePlayer)
+    public void EnemyShootingAnimation(bool canSeePlayer)
+    {
+        if (canSeePlayer)
         {
             enemyAnimator.SetBool("isFiring", true);
+        }
+        else
+        {
+            enemyAnimator.SetBool("isFiring", false);
+            enemyAnimator.SetBool("isRunning", !enemyState.isWaiting);
         }
     }
 }
