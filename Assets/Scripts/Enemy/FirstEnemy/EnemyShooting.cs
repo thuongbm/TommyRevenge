@@ -1,35 +1,41 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class EnemyShooting : MonoBehaviour
 {
-    [SerializeField] Transform firePoint;
-    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject bulletPrefab;
 
     [Header("Casing")]
     [SerializeField] private GameObject bulletCasingPrefab;
     [SerializeField] private Transform dropBulletCasingPoint;
     [SerializeField] private float casingLifetime = 3f;
-    [SerializeField] private float timeBetweenShoot = 1f;
-    private float fireCoolDown;
+    [SerializeField] private float timeBetweenShoot = 0.001f;
 
+    private float fireCoolDown;
+    private FieldOfView2D fov;
+
+    void Awake()
+    {
+        fov = GetComponent<FieldOfView2D>();
+    }
 
     void Update()
+{
+    if (fireCoolDown > 0)
     {
-        if (fireCoolDown > 0)
-        {
-            fireCoolDown -= Time.deltaTime;
-        }
+        fireCoolDown -= Time.deltaTime;
+    }
 
-        if (FieldOfView2D.Instance.canSeePlayer && fireCoolDown <= 0f)
+    if (fov != null && fov.canSeePlayer && fireCoolDown <= 0f)
+    {
+        while (fireCoolDown <= 0f)
         {
             Shoot();
-            EnemyAnimationController.Instance.EnemyShootingAnimation(FieldOfView2D.Instance.canSeePlayer);
-            fireCoolDown = timeBetweenShoot;
+            fireCoolDown += timeBetweenShoot; 
         }
     }
-    //Bug
+}
+
     public void Shoot()
     {
         if (bulletPrefab != null && firePoint != null)

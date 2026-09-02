@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BulletManager : MonoBehaviour
 {
-    [SerializeField] private float speed = 20f;
+    [SerializeField] private float speed = 50f;
 
     void Update()
     {

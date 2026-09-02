@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 235373656}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.031, y: 0, z: 0}
+  m_LocalPosition: {x: 0.132, y: 0.003, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -703,6 +703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationController
   enemyAnimator: {fileID: 325999833}
+  shootEffectCoolDown: 0.05
 --- !u!114 &325999836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2258,7 +2259,7 @@ Transform:
   m_GameObject: {fileID: 1207649674}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.042, y: 0.01, z: 0}
+  m_LocalPosition: {x: -0.127, y: -0.005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2276,6 +2277,7 @@ GameObject:
   - component: {fileID: 1254877354}
   - component: {fileID: 1254877355}
   - component: {fileID: 1254877356}
+  - component: {fileID: 1254877357}
   m_Layer: 7
   m_Name: TommyBody
   m_TagString: Untagged
@@ -2371,6 +2373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca1e81a0d924cc444b08a48f81329663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BodyMovement
+  isDead: 0
 --- !u!95 &1254877356
 Animator:
   serializedVersion: 7
@@ -2393,6 +2396,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1254877357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254877352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92757149874d26f4dbac7d87862d3699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BodyAnimationController
+  bodyAnimator: {fileID: 1254877356}
+  legs: {fileID: 1948732539}
+  legsAnimator: {fileID: 1948732542}
 --- !u!1 &1489193375
 GameObject:
   m_ObjectHideFlags: 0
@@ -5243,11 +5261,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1048114006928394597, guid: d2d99e445d99f7e4e89debb487d74a99, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.8179812
+      value: 6.72
       objectReference: {fileID: 0}
     - target: {fileID: 1048114006928394597, guid: d2d99e445d99f7e4e89debb487d74a99, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.1507635
+      value: -6.8
       objectReference: {fileID: 0}
     - target: {fileID: 1048114006928394597, guid: d2d99e445d99f7e4e89debb487d74a99, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5284,6 +5302,14 @@ PrefabInstance:
     - target: {fileID: 1911337067307276399, guid: d2d99e445d99f7e4e89debb487d74a99, type: 3}
       propertyPath: m_Name
       value: EnemyBulletCasing
+      objectReference: {fileID: 0}
+    - target: {fileID: 8272257088796404648, guid: d2d99e445d99f7e4e89debb487d74a99, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8272257088796404648, guid: d2d99e445d99f7e4e89debb487d74a99, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1051075927
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

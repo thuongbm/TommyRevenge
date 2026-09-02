@@ -2,16 +2,32 @@ using UnityEngine;
 
 public class BodyAnimationController : MonoBehaviour
 {
-    [SerializeField] Animator bodyAnimator;
-    private bool isDead;
+    [SerializeField] private Animator bodyAnimator;
+    [SerializeField] private GameObject legs;
+    [SerializeField] private Animator legsAnimator;
 
-    void Start()
-    {
-        isDead = false;
-    }
+    private bool hasHandledDeath = false;
 
     void Update()
     {
-       bodyAnimator.SetBool("isDead", false);
+        if (BodyMovement.Instance != null && BodyMovement.Instance.isDead && !hasHandledDeath)
+        {
+            HandleDeath();
+        }
+    }
+
+    private void HandleDeath()
+    {
+        hasHandledDeath = true;
+
+        if (bodyAnimator != null)
+        {
+            bodyAnimator.SetBool("isDead", true);
+        }
+
+        if (legs != null)
+        {
+            Destroy(legs);
+        }
     }
 }

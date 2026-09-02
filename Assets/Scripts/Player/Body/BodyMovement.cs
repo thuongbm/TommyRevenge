@@ -7,6 +7,7 @@ public class BodyMovement : MonoBehaviour
     private Camera mainCamera;
 
     private float nextFireTime;
+    public bool isDead;
 
     void Awake()
     {
@@ -21,6 +22,7 @@ public class BodyMovement : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
+        isDead = false;
     }
 
     void Update()
@@ -39,4 +41,10 @@ public class BodyMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet")){
+            isDead = true;
+        }
+    }
 }

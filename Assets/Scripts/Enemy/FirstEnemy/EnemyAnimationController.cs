@@ -2,48 +2,50 @@ using UnityEngine;
 
 public class EnemyAnimationController : MonoBehaviour
 {
-    public static EnemyAnimationController Instance { get; set; }
     [SerializeField] private Animator enemyAnimator;
     private EnemyHealth enemyHealth;
     private EnemyState enemyState;
+    private FieldOfView2D fov;
+
+    [SerializeField] private float shootEffectCoolDown = 0.05f;
+    private float shootEffectCounter;
+
+    private static readonly int IsDieHash = Animator.StringToHash("isDie");
+    private static readonly int IsRunningHash = Animator.StringToHash("isRunning");
+    private static readonly int IsFiringHash = Animator.StringToHash("isFiring");
 
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+        if (enemyAnimator == null) 
+            enemyAnimator = GetComponentInChildren<Animator>();
 
-        if (enemyAnimator == null) enemyAnimator = GetComponentInChildren<Animator>();
         enemyHealth = GetComponent<EnemyHealth>();
         enemyState = GetComponent<EnemyState>();
+        fov = GetComponent<FieldOfView2D>();
     }
 
     void Update()
     {
-        if (enemyState != null)
-        {
-            enemyAnimator.SetBool("isRunning", !enemyState.isWaiting);
-        }
+        if (enemyAnimator == null) return;
 
         if (enemyHealth != null && enemyHealth.isDieing)
         {
-            enemyAnimator.SetBool("isDie", true);
+            enemyAnimator.SetBool(IsDieHash, true);
+            return;
         }
-    }
 
-    public void EnemyShootingAnimation(bool canSeePlayer)
-    {
-        if (canSeePlayer)
+        if (enemyState != null)
         {
-            enemyAnimator.SetBool("isFiring", true);
+            enemyAnimator.SetBool(IsRunningHash, !enemyState.isWaiting);
         }
-        else
+
+        shootEffectCounter += Time.deltaTime;
+
+        bool canSee = fov != null && fov.canSeePlayer;
+
+        if (canSee)
         {
-            enemyAnimator.SetBool("isFiring", false);
-            enemyAnimator.SetBool("isRunning", !enemyState.isWaiting);
+            enemyAnimator.SetBool(IsRunningHash, false);
         }
     }
 }
