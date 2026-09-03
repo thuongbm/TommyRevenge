@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BulletManager : MonoBehaviour
+public class EnemyBullet : MonoBehaviour
 {
     [SerializeField] private float speed = 50f;
 
@@ -13,7 +13,7 @@ public class BulletManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet")) return;
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             BodyMovement.Instance.isDead = true;
             Debug.Log("Died");

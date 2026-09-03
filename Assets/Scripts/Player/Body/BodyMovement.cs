@@ -27,6 +27,7 @@ public class BodyMovement : MonoBehaviour
 
     void Update()
     {
+        if (isDead) return;
         HandleAiming();
     }
     private void HandleAiming()
@@ -39,12 +40,5 @@ public class BodyMovement : MonoBehaviour
         float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
 
         transform.rotation = Quaternion.Euler(0, 0, angle);
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Bullet")){
-            isDead = true;
-        }
     }
 }
