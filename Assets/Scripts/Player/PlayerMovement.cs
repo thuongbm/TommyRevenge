@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (BodyMovement.Instance.isDead) return;
+        
         rb.linearVelocity = movementInput * speed; 
     }
 

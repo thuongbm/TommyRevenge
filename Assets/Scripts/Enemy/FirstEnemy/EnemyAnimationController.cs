@@ -28,7 +28,7 @@ public class EnemyAnimationController : MonoBehaviour
     {
         if (enemyAnimator == null) return;
 
-        if (enemyHealth != null && enemyHealth.isDieing)
+        if (enemyHealth != null && enemyHealth.isDead)
         {
             enemyAnimator.SetBool(IsDieHash, true);
             return;

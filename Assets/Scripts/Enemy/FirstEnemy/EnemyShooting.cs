@@ -21,6 +21,7 @@ public class EnemyShooting : MonoBehaviour
 
     void Update()
 {
+    if (BodyMovement.Instance.isDead) return;
     if (fireCoolDown > 0)
     {
         fireCoolDown -= Time.deltaTime;

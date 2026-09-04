@@ -15,8 +15,8 @@ public class BulletManager : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            BodyMovement.Instance.isDead = true;
-            Debug.Log("Died");
+            EnemyHealth.Instance.isDead = true;
+            Debug.Log("Enemy Died");
             Debug.Log("Hit: " + collision.gameObject.name);
         }
 

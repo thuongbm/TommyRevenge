@@ -4,9 +4,10 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public static EnemyHealth Instance { get; set; }
-    [SerializeField] private float maxHealth = 100f;
-    private float currentHealth;
-    public bool isDieing;
+    [SerializeField] EnemyState enemyState;
+    [SerializeField] EnemyShooting enemyShooting;
+    [SerializeField] BoxCollider2D boxCollider2D;
+    public bool isDead;
 
     void Awake()
     {
@@ -16,18 +17,17 @@ public class EnemyHealth : MonoBehaviour
         }
         Instance = this;
     }
-    
     void Start()
     {
-        currentHealth = maxHealth;
-        isDieing = false;
+        isDead = false;
     }
-
     void Update()
     {
-        if (currentHealth <= 0)
+        if (isDead)
         {
-            isDieing = true;
+            enemyState.enabled = false;
+            boxCollider2D.enabled = false;
+            enemyShooting.enabled = false;
         }
     }
 }
