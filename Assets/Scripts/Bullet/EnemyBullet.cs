@@ -16,6 +16,7 @@ public class EnemyBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             BodyMovement.Instance.isDead = true;
+            BloodPlayerManage.Instance.BloodSpalsh();
             Debug.Log("Died");
             Debug.Log("Hit: " + collision.gameObject.name);
         }

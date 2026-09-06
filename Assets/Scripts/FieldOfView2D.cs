@@ -1,10 +1,8 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class FieldOfView2D : MonoBehaviour
 {
-    public static FieldOfView2D Instance { get; set; }
     public float radius = 5f;
     [Range(0, 360)]
     public float angle = 90f;
@@ -15,16 +13,6 @@ public class FieldOfView2D : MonoBehaviour
     public LayerMask obstructionMask;
 
     public bool canSeePlayer;
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-    }
 
     private void Start()
     {

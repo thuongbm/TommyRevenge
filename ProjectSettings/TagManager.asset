@@ -22,7 +22,7 @@ TagManager:
   - Leggs
   - Bullet
   - BulletCasing
-  - 
+  - Blood
   - 
   - 
   - 
@@ -62,6 +62,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 92355671
+    locked: 0
+  - name: Blood
+    uniqueID: 221029159
     locked: 0
   - name: Wall
     uniqueID: 1299840569

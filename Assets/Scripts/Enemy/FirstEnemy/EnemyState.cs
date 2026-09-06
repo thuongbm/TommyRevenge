@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class EnemyState : MonoBehaviour
 {
-    public static EnemyState Instance { get; private set; }
-
     [SerializeField] private Transform[] patrolPoint;
     [SerializeField] private Transform playerTransform; 
     [SerializeField] private float speed = 3f;
@@ -16,14 +14,12 @@ public class EnemyState : MonoBehaviour
     private float waitTimer;
     public bool isWaiting;
 
+    private FieldOfView2D fov;
+
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+        // Get the FieldOfView2D component attached to this specific enemy
+        fov = GetComponent<FieldOfView2D>();
     }
 
     void Start()
@@ -37,14 +33,13 @@ public class EnemyState : MonoBehaviour
 
     void Update()
     {
-        if (FieldOfView2D.Instance != null && FieldOfView2D.Instance.canSeePlayer)
+        // Check this local enemy's FOV instead of the global Instance
+        if (fov != null && fov.canSeePlayer)
         {
             if (playerTransform != null)
             {
                 RotateTowards(playerTransform.position);
             }
-
-            
             return; 
         }
 

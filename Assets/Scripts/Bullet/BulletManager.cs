@@ -15,7 +15,19 @@ public class BulletManager : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            EnemyHealth.Instance.isDead = true;
+            // Get the components attached to the SPECIFIC enemy the bullet just hit
+            EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.isDead = true;
+            }
+
+            BloodManage bloodManage = collision.gameObject.GetComponent<BloodManage>();
+            if (bloodManage != null)
+            {
+                bloodManage.BloodSpalsh();
+            }
+
             Debug.Log("Enemy Died");
             Debug.Log("Hit: " + collision.gameObject.name);
         }
