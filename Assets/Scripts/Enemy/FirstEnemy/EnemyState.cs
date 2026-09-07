@@ -18,7 +18,6 @@ public class EnemyState : MonoBehaviour
 
     void Awake()
     {
-        // Get the FieldOfView2D component attached to this specific enemy
         fov = GetComponent<FieldOfView2D>();
     }
 

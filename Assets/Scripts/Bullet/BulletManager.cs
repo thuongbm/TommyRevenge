@@ -15,7 +15,6 @@ public class BulletManager : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            // Get the components attached to the SPECIFIC enemy the bullet just hit
             EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
