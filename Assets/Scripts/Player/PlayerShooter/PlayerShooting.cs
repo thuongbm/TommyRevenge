@@ -1,5 +1,7 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.LowLevelPhysics2D;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -14,6 +16,11 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private GameObject bulletCasingPrefab;
     [SerializeField] private Transform dropBulletCasingPoint;
     [SerializeField] private float casingLifetime = 3f;
+
+    [Header("Audio Setting")]
+    [SerializeField] private float soundRadius = 15f;
+    [SerializeField] private LayerMask enemyLayer;
+
 
     private void Awake()
     {
@@ -51,5 +58,26 @@ public class PlayerShooting : MonoBehaviour
 
             Destroy(casing, casingLifetime);
         }
+
+        AlertEnemies(transform.position, soundRadius);
+    }
+
+    private void AlertEnemies(Vector2 origin, float radius)
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(origin, radius, enemyLayer);
+        
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.TryGetComponent<EnemyState>(out EnemyState enemy))
+            {
+                enemy.OnHeardGunShot(origin);
+            }
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, soundRadius);
     }
 }

@@ -480,6 +480,10 @@ MonoBehaviour:
   bulletCasingPrefab: {fileID: 1653720552}
   dropBulletCasingPoint: {fileID: 1011647180}
   casingLifetime: 3
+  soundRadius: 15
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &315082973
 MonoBehaviour:
   m_ObjectHideFlags: 0

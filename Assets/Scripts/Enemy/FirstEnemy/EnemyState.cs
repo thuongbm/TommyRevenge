@@ -1,13 +1,27 @@
-using System.Collections;
 using UnityEngine;
 
 public class EnemyState : MonoBehaviour
 {
+    public enum AIState { Patrol, Alerted, Chasing }
+
+    [Header("Guard Type")]
+    [SerializeField] private bool isStaticGuard = false;
+
+    [Header("Patrol Settings")]
     [SerializeField] private Transform[] patrolPoint;
-    [SerializeField] private Transform playerTransform; 
-    [SerializeField] private float speed = 3f;
-    [SerializeField] private float rotationSpeed = 720f;
     [SerializeField] private float waitTimePoint = 1.5f;
+
+    [Header("Movement Settings")]
+    [SerializeField] private float speed = 3f;
+    [SerializeField] private float alertSpeed = 5f; 
+    [SerializeField] private float rotationSpeed = 720f;
+    [SerializeField] private float stopDistance = 0.2f;
+
+    [Header("References")]
+    [SerializeField] private Transform playerTransform;
+
+    private AIState currentState = AIState.Patrol;
+    private Vector3 soundTargetPos;
 
     private Transform currentPatrolPoint;
     private int currentPatrolIndex;
@@ -27,21 +41,70 @@ public class EnemyState : MonoBehaviour
         {
             currentPatrolIndex = 0;
             currentPatrolPoint = patrolPoint[currentPatrolIndex];
-        } 
+        }
     }
 
     void Update()
     {
-        // Check this local enemy's FOV instead of the global Instance
-        if (fov != null && fov.canSeePlayer)
+        if (fov != null && fov.canSeePlayer && playerTransform != null)
         {
-            if (playerTransform != null)
-            {
-                RotateTowards(playerTransform.position);
-            }
-            return; 
+            currentState = AIState.Chasing;
+            RotateTowards(playerTransform.position);
+            return;
         }
 
+        if (currentState == AIState.Alerted)
+        {
+            MoveTowardsTarget(soundTargetPos, alertSpeed);
+
+            if (Vector2.Distance(transform.position, soundTargetPos) <= stopDistance)
+            {
+                currentState = AIState.Patrol;
+            }
+            return;
+        }
+
+        HandlePatrol();
+    }
+
+
+    public void MoveTowardsTarget(Vector3 targetPosition, float currentSpeed)
+    {
+        Vector3 target = new Vector3(targetPosition.x, targetPosition.y, transform.position.z);
+        transform.position = Vector3.MoveTowards(transform.position, target, currentSpeed * Time.deltaTime);
+        RotateTowards(target);
+    }
+
+    public void RotateTowards(Vector3 targetPosition)
+    {
+        Vector3 direction = targetPosition - transform.position;
+
+        if (direction.sqrMagnitude > 0.001f)
+        {
+            float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion targetRotation = Quaternion.AngleAxis(targetAngle, Vector3.forward);
+
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation,
+                targetRotation,
+                rotationSpeed * Time.deltaTime
+            );
+        }
+    }
+
+
+    public void OnHeardGunShot(Vector2 soundPosition)
+    {
+        if (isStaticGuard) return;
+
+        soundTargetPos = soundPosition;
+        currentState = AIState.Alerted;
+        isWaiting = false;
+    }
+
+
+    private void HandlePatrol()
+    {
         if (currentPatrolPoint == null) return;
 
         if (isWaiting)
@@ -56,32 +119,12 @@ public class EnemyState : MonoBehaviour
             return;
         }
 
-        Vector3 targetPos = new Vector3(currentPatrolPoint.position.x, currentPatrolPoint.position.y, transform.position.z);
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+        MoveTowardsTarget(currentPatrolPoint.position, speed);
 
-        RotateTowards(targetPos);
-
-        if (Vector2.Distance(transform.position, targetPos) < 0.2f)
+        if (Vector2.Distance(transform.position, currentPatrolPoint.position) <= stopDistance)
         {
             isWaiting = true;
             waitTimer = waitTimePoint;
-        }
-    }
-
-    private void RotateTowards(Vector3 targetPosition)
-    {
-        Vector3 direction = targetPosition - transform.position;
-
-        if (direction.sqrMagnitude > 0.001f)
-        {
-            float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            Quaternion targetRotation = Quaternion.AngleAxis(targetAngle, Vector3.forward);
-
-            transform.rotation = Quaternion.RotateTowards(
-                transform.rotation,
-                targetRotation,
-                rotationSpeed * Time.deltaTime
-            );
         }
     }
 }

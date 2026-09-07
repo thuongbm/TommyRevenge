@@ -52,6 +52,7 @@ GameObject:
   - component: {fileID: 8862134620289941067}
   - component: {fileID: 8588607484090841836}
   - component: {fileID: 1625588490187875677}
+  - component: {fileID: 3000959815701833397}
   m_Layer: 9
   m_Name: FirstAI
   m_TagString: Enemy
@@ -147,15 +148,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab548cd235aaa345a58d1352e2dcc21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyState
+  isStaticGuard: 0
   patrolPoint:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  playerTransform: {fileID: 0}
-  speed: 1
-  rotationSpeed: 180
   waitTimePoint: 1.5
+  speed: 1
+  alertSpeed: 5
+  rotationSpeed: 180
+  stopDistance: 0.2
+  playerTransform: {fileID: 0}
   isWaiting: 0
 --- !u!95 &5370295568640471889
 Animator:
@@ -366,6 +370,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BloodManage
   blood: {fileID: 4780215708176463705, guid: 287846cf8b22b0b4888caeeef7b5e105, type: 3}
+--- !u!114 &3000959815701833397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7756661692769815444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2fbda5178da8b74baeb846b8f45db04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HearingGunShot
+  isStaticGuard: 0
 --- !u!1 &8950099952484472651
 GameObject:
   m_ObjectHideFlags: 0
