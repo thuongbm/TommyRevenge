@@ -11,12 +11,18 @@ public class EnemyShooting : MonoBehaviour
     [SerializeField] private float casingLifetime = 3f;
     [SerializeField] private float timeBetweenShoot = 0.001f;
 
+    [Header("Fire sound")]
+    public AudioClip fireClip;
+
+    private AudioSource audioSource;
+
     private float fireCoolDown;
     private FieldOfView2D fov;
 
     void Awake()
     {
         fov = GetComponent<FieldOfView2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -54,5 +60,7 @@ public class EnemyShooting : MonoBehaviour
 
             Destroy(casing, casingLifetime);
         }
+
+        audioSource.PlayOneShot(fireClip);
     }
 }

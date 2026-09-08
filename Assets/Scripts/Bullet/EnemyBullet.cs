@@ -4,6 +4,15 @@ public class EnemyBullet : MonoBehaviour
 {
     [SerializeField] private float speed = 50f;
 
+    [Header("Blood Splash Sound")]
+    public AudioClip bloodSplashSound;
+    private AudioSource audioSource;
+
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     void Update()
     {
         transform.Translate(Vector2.right * speed * Time.deltaTime);
@@ -25,5 +34,7 @@ public class EnemyBullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        audioSource.PlayOneShot(bloodSplashSound);
     }
 }

@@ -20,6 +20,10 @@ public class EnemyState : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform playerTransform;
 
+    // [Header("Follow Player time")]
+    // [SerializeField] float followPlayerTime = 2f;
+    private float followPlayerCooldown;
+
     private AIState currentState = AIState.Patrol;
     private Vector3 soundTargetPos;
 
@@ -46,6 +50,7 @@ public class EnemyState : MonoBehaviour
 
     void Update()
     {
+        followPlayerCooldown = Time.deltaTime;
         if (fov != null && fov.canSeePlayer && playerTransform != null)
         {
             currentState = AIState.Chasing;
@@ -90,9 +95,10 @@ public class EnemyState : MonoBehaviour
                 rotationSpeed * Time.deltaTime
             );
         }
+
+        followPlayerCooldown = 0f;
+
     }
-
-
     public void OnHeardGunShot(Vector2 soundPosition)
     {
         if (isStaticGuard) return;
@@ -101,8 +107,6 @@ public class EnemyState : MonoBehaviour
         currentState = AIState.Alerted;
         isWaiting = false;
     }
-
-
     private void HandlePatrol()
     {
         if (currentPatrolPoint == null) return;

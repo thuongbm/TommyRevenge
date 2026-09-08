@@ -4,6 +4,14 @@ public class BulletManager : MonoBehaviour
 {
     [SerializeField] private float speed = 50f;
 
+    [Header("Blood Splash Sound")]
+    public AudioClip bloodSplashSound;
+    private AudioSource audioSource;
+
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     void Update()
     {
         transform.Translate(Vector2.right * speed * Time.deltaTime);
@@ -29,6 +37,8 @@ public class BulletManager : MonoBehaviour
 
             Debug.Log("Enemy Died");
             Debug.Log("Hit: " + collision.gameObject.name);
+
+            audioSource.PlayOneShot(bloodSplashSound);
         }
 
         if (collision.gameObject.CompareTag("map"))

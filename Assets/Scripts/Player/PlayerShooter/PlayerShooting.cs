@@ -1,4 +1,5 @@
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.LowLevelPhysics2D;
@@ -21,6 +22,14 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private float soundRadius = 15f;
     [SerializeField] private LayerMask enemyLayer;
 
+    [Header("Audio Clip")]
+    public AudioClip fireClip;
+
+    private AudioSource audioSource;
+
+    [Header("Reload Time")]
+    [SerializeField] private float timeReload;
+    private float shootCoolDown = 0;
 
     private void Awake()
     {
@@ -30,13 +39,20 @@ public class PlayerShooting : MonoBehaviour
             return;
         }
         Instance = this;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
+        shootCoolDown += Time.deltaTime;
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
-            Shoot();
+            if (shootCoolDown >= timeReload)
+            {
+                Shoot();
+                shootCoolDown = 0f;
+            }
         }
     }
 
@@ -58,6 +74,8 @@ public class PlayerShooting : MonoBehaviour
 
             Destroy(casing, casingLifetime);
         }
+
+        audioSource.PlayOneShot(fireClip);
 
         AlertEnemies(transform.position, soundRadius);
     }

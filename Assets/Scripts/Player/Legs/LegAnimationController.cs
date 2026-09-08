@@ -7,7 +7,22 @@ public class LegAnimationController : MonoBehaviour
     [SerializeField] private Transform legsTransform;
     [SerializeField] private float rotationSpeed = 50f;
 
+    [Header("Sound")]
+    public AudioClip walkingSound;
+
+    private AudioSource audioSource;
+
     private static readonly int isRunningHash = Animator.StringToHash("isRunning");
+
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+
+        audioSource.clip = walkingSound;
+        audioSource.loop = true;
+        audioSource.playOnAwake = false;
+    }
+
     void Update()
     {
         Vector2 movement = PlayerMovement.Instance.movementInput;
@@ -17,6 +32,11 @@ public class LegAnimationController : MonoBehaviour
 
         if (isMoving)
         {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+
             float targetAngle = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg - 90f;
             Quaternion targetRotation = Quaternion.Euler(0f, 0f, targetAngle);
 
@@ -25,6 +45,14 @@ public class LegAnimationController : MonoBehaviour
                 targetRotation,
                 rotationSpeed * Time.deltaTime
             );
+
+        }
+        else
+        {
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
         }
     }
 }
