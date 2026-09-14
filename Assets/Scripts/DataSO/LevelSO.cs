@@ -5,5 +5,6 @@ public class LevelSO : ScriptableObject
 {
     public string name;
     public string sceneToLoad;
+    public int enemyTotal;
     public string isUnlockedByDefault;
 }

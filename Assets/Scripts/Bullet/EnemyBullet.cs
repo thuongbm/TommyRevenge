@@ -19,22 +19,29 @@ public class EnemyBullet : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
+{
+    if (collision.gameObject.CompareTag("Bullet")) return;
+
+    if (collision.gameObject.CompareTag("Player"))
     {
-        if (collision.gameObject.CompareTag("Bullet")) return;
+        BodyMovement.Instance.isDead = true;
+        BloodPlayerManage.Instance.BloodSpalsh();
+        Debug.Log("Died");
+        Debug.Log("Hit: " + collision.gameObject.name);
 
-        if (collision.gameObject.CompareTag("Player"))
+        if (bloodSplashSound != null)
         {
-            BodyMovement.Instance.isDead = true;
-            BloodPlayerManage.Instance.BloodSpalsh();
-            Debug.Log("Died");
-            Debug.Log("Hit: " + collision.gameObject.name);
+            AudioSource.PlayClipAtPoint(bloodSplashSound, transform.position);
         }
 
-        if (collision.gameObject.CompareTag("map"))
-        {
-            Destroy(gameObject);
-        }
-
-        audioSource.PlayOneShot(bloodSplashSound);
+        Destroy(gameObject);
+        return;
     }
+
+    if (collision.gameObject.CompareTag("map"))
+    {
+        Destroy(gameObject);
+        return;
+    }
+}
 }

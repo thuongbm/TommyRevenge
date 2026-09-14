@@ -24,9 +24,11 @@ public class BulletManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
+            if (enemyHealth != null && !enemyHealth.isDead)
             {
                 enemyHealth.isDead = true;
+
+                LevelManager.OnEnemyKilled();
             }
 
             BloodManage bloodManage = collision.gameObject.GetComponent<BloodManage>();

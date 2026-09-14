@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 2002270615158089980}
   - component: {fileID: 176570258536722704}
   - component: {fileID: 2420558309214971059}
+  - component: {fileID: -3945657476385060980}
   m_Layer: 5
   m_Name: LevelButton
   m_TagString: Untagged
@@ -273,3 +274,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelButtonUI
   lableText: {fileID: 6731364743984138300}
   button: {fileID: 176570258536722704}
+--- !u!114 &-3945657476385060980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7933945166236346816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77388eeb1f7456d409ec78f4e1be8852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelManager
+  totalEnemies: 0
+  enemyKilled: 0

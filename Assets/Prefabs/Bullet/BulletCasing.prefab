@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6693997189074442058}
   - component: {fileID: 1566748954793740137}
-  - component: {fileID: 7273926166365745692}
   - component: {fileID: 5787945322363565494}
   - component: {fileID: 2535775593723794143}
   m_Layer: 12
@@ -94,20 +93,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &7273926166365745692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7555752676977430462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 834983776942f59489cf5a9993e2a300, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DropBulletCasing
-  dropBulletCasingPoint: {fileID: 0}
-  bulletChasingPrefab: {fileID: 7555752676977430462}
 --- !u!50 &5787945322363565494
 Rigidbody2D:
   serializedVersion: 5

@@ -808,17 +808,21 @@ PrefabInstance:
       value: SecondAI
       objectReference: {fileID: 0}
     - target: {fileID: 8588607484090841836, guid: 8fc942abdc28ca645a24804a87391186, type: 3}
+      propertyPath: fireClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d76df5ad3fcb35543ae7f769f996cbb3, type: 3}
+    - target: {fileID: 8588607484090841836, guid: 8fc942abdc28ca645a24804a87391186, type: 3}
       propertyPath: firePoint
       value: 
       objectReference: {fileID: 235373657}
     - target: {fileID: 8588607484090841836, guid: 8fc942abdc28ca645a24804a87391186, type: 3}
       propertyPath: bulletPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3109823922336918674, guid: 48636adaf63d1844994c0810ec7cd35e, type: 3}
     - target: {fileID: 8588607484090841836, guid: 8fc942abdc28ca645a24804a87391186, type: 3}
       propertyPath: bulletCasingPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1911337067307276399, guid: d2d99e445d99f7e4e89debb487d74a99, type: 3}
     - target: {fileID: 8588607484090841836, guid: 8fc942abdc28ca645a24804a87391186, type: 3}
       propertyPath: dropBulletCasingPoint
       value: 
@@ -6705,6 +6709,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirstAI
       objectReference: {fileID: 0}
+    - target: {fileID: 8588607484090841836, guid: 8fc942abdc28ca645a24804a87391186, type: 3}
+      propertyPath: fireClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d76df5ad3fcb35543ae7f769f996cbb3, type: 3}
+    - target: {fileID: 8588607484090841836, guid: 8fc942abdc28ca645a24804a87391186, type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 235373657}
+    - target: {fileID: 8588607484090841836, guid: 8fc942abdc28ca645a24804a87391186, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 3109823922336918674, guid: 48636adaf63d1844994c0810ec7cd35e, type: 3}
+    - target: {fileID: 8588607484090841836, guid: 8fc942abdc28ca645a24804a87391186, type: 3}
+      propertyPath: bulletCasingPrefab
+      value: 
+      objectReference: {fileID: 1911337067307276399, guid: d2d99e445d99f7e4e89debb487d74a99, type: 3}
+    - target: {fileID: 8588607484090841836, guid: 8fc942abdc28ca645a24804a87391186, type: 3}
+      propertyPath: dropBulletCasingPoint
+      value: 
+      objectReference: {fileID: 1207649675}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

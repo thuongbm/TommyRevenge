@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,6 +14,15 @@ public class LevelButtonUI : MonoBehaviour
         button.interactable = isUnlocked;
 
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => SceneManager.LoadScene(levelSO.sceneToLoad));
+        button.onClick.AddListener(() =>
+        {
+            LevelStatus.currentLevel = levelSO;
+            LevelStatus.enemyTotal = levelSO.enemyTotal;
+            LevelStatus.ResetRun();
+
+            LevelManager.TotalEnemies(levelSO.enemyTotal);
+
+            SceneManager.LoadScene(levelSO.sceneToLoad);
+        });
     } 
 }
