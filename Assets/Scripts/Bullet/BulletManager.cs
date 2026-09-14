@@ -28,6 +28,8 @@ public class BulletManager : MonoBehaviour
             {
                 enemyHealth.isDead = true;
 
+                Destroy(gameObject);
+
                 LevelManager.OnEnemyKilled();
             }
 

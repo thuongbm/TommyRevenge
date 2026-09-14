@@ -2570,6 +2570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
   nameText: {fileID: 1220998964}
   sentenceText: {fileID: 1193677222}
+  dialogueScreen: {fileID: 1067053829}
 --- !u!114 &1756608358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3434,6 +3435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fcf12369ffadd4f91c4a37830af651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuScreenManager
+  dialogueScreen: {fileID: 1067053829}
   chapterScreen: {fileID: 437471915}
   chapterButton: {fileID: 4598796100303922001, guid: 490804f5f2a0e214488d074db0c822c3, type: 3}
   chapterGridContainer: {fileID: 1340133459}

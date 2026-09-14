@@ -1,18 +1,19 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.Collections;
 using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
-    public static DialogueManager Instance { get; set; }
+    public static DialogueManager Instance { get; private set; }
 
-    public TextMeshProUGUI nameText;
-    public TextMeshProUGUI sentenceText;
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI sentenceText;
+    [SerializeField] private GameObject dialogueScreen;
 
     private Queue<string> currentSentences; 
     private Queue<DialogueLine> dialogueBlocks;
+    private Action onDialogueComplete;
 
     void Awake()
     {
@@ -22,17 +23,21 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         Instance = this;
-    }
 
-    void Start()
-    {
         dialogueBlocks = new Queue<DialogueLine>();
         currentSentences = new Queue<string>();
     }
 
-    public void StartDialogue(DialogueData dialogueData)
+    public void StartDialogue(DialogueData dialogueData, Action onComplete = null)
     {
-        Debug.Log("Start conversation");
+        if (dialogueData == null || dialogueData.lines.Length == 0)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        onDialogueComplete = onComplete;
+        dialogueScreen.SetActive(true);
         dialogueBlocks.Clear();
         currentSentences.Clear();
 
@@ -51,7 +56,7 @@ public class DialogueManager : MonoBehaviour
             if (dialogueBlocks.Count == 0)
             {
                 EndDialogue();
-                return;
+                return; 
             }
 
             DialogueLine currentSpeaker = dialogueBlocks.Dequeue();
@@ -63,12 +68,17 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        string currentSentence = currentSentences.Dequeue();
-        sentenceText.text = currentSentence;
+        if (currentSentences.Count > 0)
+        {
+            sentenceText.text = currentSentences.Dequeue();
+        }
     }
 
     public void EndDialogue()
     {
+        dialogueScreen.SetActive(false);
         
+        onDialogueComplete?.Invoke();
+        onDialogueComplete = null;
     }
 }
