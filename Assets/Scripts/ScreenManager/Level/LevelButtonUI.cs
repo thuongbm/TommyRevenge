@@ -22,17 +22,7 @@ public class LevelButtonUI : MonoBehaviour
 
             LevelManager.TotalEnemies(levelSO.enemyTotal);
 
-            if (DialogueTrigger.Instance != null && DialogueTrigger.Instance.dialogueData != null)
-            {
-                DialogueManager.Instance.StartDialogue(
-                    DialogueTrigger.Instance.dialogueData, 
-                    () => SceneManager.LoadScene(levelSO.sceneToLoad)
-                );
-            }
-            else
-            {
-                SceneManager.LoadScene(levelSO.sceneToLoad);
-            }
+            SceneManager.LoadScene(levelSO.sceneToLoad);
         });
     } 
 }
