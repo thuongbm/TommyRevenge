@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/0.unity
     guid: bd7f3cd1b751d8d4f812fa4177d8c094
   - enabled: 1
-    path: Assets/Scenes/Levels/Chapter1_Turtorial.unity
+    path: Assets/Scenes/Levels/Chapter1/Chapter1_Turtorial.unity
     guid: 94ce4b78d9433d44b960a340864774ec
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

@@ -50,8 +50,6 @@ GameObject:
   - component: {fileID: 6686033276117744254}
   - component: {fileID: 4580107865902883907}
   - component: {fileID: 8862134620289941067}
-  - component: {fileID: 8588607484090841836}
-  - component: {fileID: 1625588490187875677}
   - component: {fileID: 3000959815701833397}
   - component: {fileID: 607214613802869126}
   m_Layer: 9
@@ -308,7 +306,7 @@ MonoBehaviour:
   firePoint: {fileID: 4170705155650623957}
   bulletPrefab: {fileID: 3109823922336918674, guid: 48636adaf63d1844994c0810ec7cd35e, type: 3}
   bulletCasingPrefab: {fileID: 1911337067307276399, guid: d2d99e445d99f7e4e89debb487d74a99, type: 3}
-  dropBulletCasingPoint: {fileID: 562962385038280400}
+  dropBulletCasingPoint: {fileID: 0}
   casingLifetime: 3
   timeBetweenShoot: 1
   fireClip: {fileID: 8300000, guid: d76df5ad3fcb35543ae7f769f996cbb3, type: 3}
@@ -327,40 +325,9 @@ MonoBehaviour:
   enemyState: {fileID: 2144092993702250015}
   enemyShooting: {fileID: 6686033276117744254}
   boxCollider2D: {fileID: 5527185520103493701}
+  fieldOfView2D: {fileID: 2988054364824495433}
   isDead: 0
 --- !u!114 &8862134620289941067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7756661692769815444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 001ebdbc64c69fa4f8cdd0218cc1863b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BloodManage
-  blood: {fileID: 4780215708176463705, guid: 287846cf8b22b0b4888caeeef7b5e105, type: 3}
---- !u!114 &8588607484090841836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7756661692769815444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0436037e92158464599d1a12ddb01b6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyShooting
-  firePoint: {fileID: 4170705155650623957}
-  bulletPrefab: {fileID: 3109823922336918674, guid: 48636adaf63d1844994c0810ec7cd35e, type: 3}
-  bulletCasingPrefab: {fileID: 1911337067307276399, guid: d2d99e445d99f7e4e89debb487d74a99, type: 3}
-  dropBulletCasingPoint: {fileID: 562962385038280400}
-  casingLifetime: 3
-  timeBetweenShoot: 1
-  fireClip: {fileID: 8300000, guid: d76df5ad3fcb35543ae7f769f996cbb3, type: 3}
---- !u!114 &1625588490187875677
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
