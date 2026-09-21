@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea04e8ebd6aa244baf108c11ef6d774, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: Assembly-CSharp::LevelSO
-  name: 
-  sceneToLoad: 
-  enemyTotal: 0
-  isUnlockedByDefault: 
+  name: Level 1
+  sceneToLoad: Chapter1_Level1
+  enemyTotal: 10
+  isUnlockedByDefault: True
