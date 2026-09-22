@@ -33,10 +33,13 @@ public class EnemyState : MonoBehaviour
     public bool isWaiting;
 
     private FieldOfView2D fov;
+    private MeleeAttack meleeAttack;
 
-    void Awake()
+
+void Awake()
     {
         fov = GetComponent<FieldOfView2D>();
+        meleeAttack = GetComponent<MeleeAttack>();
     }
 
     void Start()
@@ -48,13 +51,29 @@ public class EnemyState : MonoBehaviour
         }
     }
 
-    void Update()
+void Update()
     {
         followPlayerCooldown = Time.deltaTime;
         if (fov != null && fov.canSeePlayer && playerTransform != null)
         {
             currentState = AIState.Chasing;
-            RotateTowards(playerTransform.position);
+
+            if (meleeAttack != null)
+            {
+                float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+                if (distanceToPlayer > stopDistance)
+                {
+                    MoveTowardsTarget(playerTransform.position, alertSpeed);
+                }
+                else
+                {
+                    RotateTowards(playerTransform.position);
+                }
+            }
+            else
+            {
+                RotateTowards(playerTransform.position);
+            }
             return;
         }
 

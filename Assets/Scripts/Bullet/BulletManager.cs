@@ -24,9 +24,11 @@ public class BulletManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
+            // MeleeEnemyHealth meleeEnemyHealth = collision.gameObject.GetComponent<MeleeEnemyHealth>();
             if (enemyHealth != null && !enemyHealth.isDead)
             {
                 enemyHealth.isDead = true;
+                // meleeEnemyHealth.isDead = true;
 
                 Destroy(gameObject);
 

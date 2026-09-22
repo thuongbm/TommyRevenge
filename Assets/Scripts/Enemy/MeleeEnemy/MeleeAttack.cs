@@ -14,12 +14,16 @@ public class MeleeAttack : MonoBehaviour
         fov = GetComponent<FieldOfView2D>();
     }
 
-    void Update()
+void Update()
     {
         if (attackCoolDown > 0)
             attackCoolDown -= Time.deltaTime;
 
-        
+        if (fov != null && fov.canSeePlayer && InRange() && attackCoolDown <= 0f)
+        {
+            Attack();
+            attackCoolDown = timeBetweenAttack;
+        }
     }
 
     private bool InRange()

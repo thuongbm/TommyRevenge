@@ -3426,6 +3426,12 @@ GameObject:
   - component: {fileID: 1140871250}
   - component: {fileID: 1140871249}
   - component: {fileID: 1140871248}
+  - component: {fileID: 1140871254}
+  - component: {fileID: 1140871255}
+  - component: {fileID: 1140871257}
+  - component: {fileID: 1140871258}
+  - component: {fileID: 1140871259}
+  - component: {fileID: 1140871260}
   m_Layer: 9
   m_Name: MeleeEnemy
   m_TagString: Enemy
@@ -3454,7 +3460,7 @@ MonoBehaviour:
   alertSpeed: 5
   rotationSpeed: 720
   stopDistance: 0.2
-  playerTransform: {fileID: 1140871253}
+  playerTransform: {fileID: 315082968}
   isWaiting: 0
 --- !u!95 &1140871249
 Animator:
@@ -3625,6 +3631,101 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1140871254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140871247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5fb6c7941a906547b2ec580ff49cc83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationController
+  enemyAnimator: {fileID: 1140871249}
+  shootEffectCoolDown: 0.05
+--- !u!114 &1140871255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140871247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b11211983e35219479219dc2585dc231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FieldOfView2D
+  radius: 5
+  angle: 90
+  playerRef: {fileID: 315082965}
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 128
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  canSeePlayer: 0
+--- !u!114 &1140871257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140871247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f6eba8153893f4fb94321ea38705e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeAttack
+  attackRange: 1.2
+  timeBetweenAttack: 1
+  playerTransform: {fileID: 315082968}
+--- !u!114 &1140871258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140871247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7ae8dbe03026a41ad099c78d0e07ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeEnemyHealth
+  enemyState: {fileID: 1140871248}
+  meleeAttack: {fileID: 1140871257}
+  boxCollider2D: {fileID: 1140871251}
+  fieldOfView2D: {fileID: 1140871255}
+  isDead: 0
+--- !u!114 &1140871259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140871247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 001ebdbc64c69fa4f8cdd0218cc1863b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BloodManage
+  blood: {fileID: 4780215708176463705, guid: 287846cf8b22b0b4888caeeef7b5e105, type: 3}
+--- !u!114 &1140871260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140871247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0ef07521fc01a248968ad47c657724a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeAnimationController
+  enemyAnimator: {fileID: 1140871249}
+  shootEffectCoolDown: 0.05
 --- !u!1 &1143539682
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class MeleeEnemyHealth : MonoBehaviour
 {
     [SerializeField] EnemyState enemyState;
-    [SerializeField] EnemyShooting enemyShooting;
+    [SerializeField] MeleeAttack meleeAttack;
 
     [SerializeField] BoxCollider2D boxCollider2D;
     [SerializeField] FieldOfView2D fieldOfView2D;
@@ -21,7 +21,7 @@ void Update()
             enemyState.enabled = false;
             boxCollider2D.enabled = false;
             fieldOfView2D.enabled = false;
-            if (enemyShooting != null) enemyShooting.enabled = false;
+            if (meleeAttack != null) meleeAttack.enabled = false;
         }
     }
 }
