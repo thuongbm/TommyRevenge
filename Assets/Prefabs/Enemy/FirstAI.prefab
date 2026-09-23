@@ -306,10 +306,11 @@ MonoBehaviour:
   firePoint: {fileID: 4170705155650623957}
   bulletPrefab: {fileID: 3109823922336918674, guid: 48636adaf63d1844994c0810ec7cd35e, type: 3}
   bulletCasingPrefab: {fileID: 1911337067307276399, guid: d2d99e445d99f7e4e89debb487d74a99, type: 3}
-  dropBulletCasingPoint: {fileID: 0}
+  dropBulletCasingPoint: {fileID: 562962385038280400}
   casingLifetime: 3
   timeBetweenShoot: 1
   fireClip: {fileID: 8300000, guid: d76df5ad3fcb35543ae7f769f996cbb3, type: 3}
+  isFiring: 0
 --- !u!114 &4580107865902883907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,6 +325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   enemyState: {fileID: 2144092993702250015}
   enemyShooting: {fileID: 6686033276117744254}
+  meleeAttack: {fileID: 0}
   boxCollider2D: {fileID: 5527185520103493701}
   fieldOfView2D: {fileID: 2988054364824495433}
   isDead: 0

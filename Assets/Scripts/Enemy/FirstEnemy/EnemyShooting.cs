@@ -10,17 +10,17 @@ public class EnemyShooting : MonoBehaviour
     [SerializeField] private GameObject bulletCasingPrefab;
     [SerializeField] private Transform dropBulletCasingPoint;
     [SerializeField] private float casingLifetime = 3f;
-    [SerializeField] private float timeBetweenShoot = 0.001f;
+    [SerializeField] private float timeBetweenShoot = 0.5f; // Set to realistic interval (0.001f is too fast)
 
     [Header("Fire sound")]
-    public AudioClip fireClip;
+    [SerializeField] private AudioClip fireClip;
 
     private AudioSource audioSource;
-
     private float fireCoolDown;
     private FieldOfView2D fov;
 
-    public bool isFiring = false;
+    // Event invoked precisely when a shot occurs
+    public event Action onShoot;
 
     void Awake()
     {
@@ -29,28 +29,35 @@ public class EnemyShooting : MonoBehaviour
     }
 
     void Update()
-{
-    if (BodyMovement.Instance.isDead) return;
-    if (fireCoolDown > 0)
     {
-        fireCoolDown -= Time.deltaTime;
-    }
+        if (BodyMovement.Instance != null && BodyMovement.Instance.isDead) return;
 
-    if (fov != null && fov.canSeePlayer && fireCoolDown <= 0f)
-    {
-        Shoot();
-        fireCoolDown = timeBetweenShoot; 
+        if (fireCoolDown > 0f)
+        {
+            fireCoolDown -= Time.deltaTime;
+        }
+
+        bool canSee = fov != null && fov.canSeePlayer;
+
+        if (canSee && fireCoolDown <= 0f)
+        {
+            Shoot();
+            fireCoolDown = timeBetweenShoot;
+        }
     }
-}
 
     public void Shoot()
     {
-        isFiring = true;
+        // 1. Notify animation controller
+        onShoot?.Invoke();
+
+        // 2. Spawn bullet
         if (bulletPrefab != null && firePoint != null)
         {
             Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         }
 
+        // 3. Spawn casing
         if (bulletCasingPrefab != null && dropBulletCasingPoint != null)
         {
             GameObject casing = Instantiate(
@@ -62,6 +69,10 @@ public class EnemyShooting : MonoBehaviour
             Destroy(casing, casingLifetime);
         }
 
-        audioSource.PlayOneShot(fireClip);
+        // 4. Play audio
+        if (audioSource != null && fireClip != null)
+        {
+            audioSource.PlayOneShot(fireClip);
+        }
     }
 }

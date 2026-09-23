@@ -1,16 +1,16 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class EnemyAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator enemyAnimator;
+    [SerializeField] private float shootEffectDuration = 0.05f;
+
     private EnemyHealth enemyHealth;
     private EnemyState enemyState;
     private EnemyShooting enemyShooting;
     private FieldOfView2D fov;
-
-    [SerializeField] private float shootEffectCoolDown = 0.05f;
-    private float shootEffectCounter;
+    private Coroutine shootAnimCoroutine;
 
     private static readonly int IsDieHash = Animator.StringToHash("isDie");
     private static readonly int IsRunningHash = Animator.StringToHash("isRunning");
@@ -27,33 +27,60 @@ public class EnemyAnimationController : MonoBehaviour
         fov = GetComponent<FieldOfView2D>();
     }
 
-void Update()
+    void OnEnable()
+    {
+        if (enemyShooting != null)
+        {
+            enemyShooting.onShoot += TriggerShootAnimation;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (enemyShooting != null)
+        {
+            enemyShooting.onShoot -= TriggerShootAnimation;
+        }
+    }
+
+    void Update()
     {
         if (enemyAnimator == null) return;
 
+        // Handle death
         if (enemyHealth != null && enemyHealth.isDead)
         {
+            if (shootAnimCoroutine != null) StopCoroutine(shootAnimCoroutine);
             enemyAnimator.SetBool(IsFiringHash, false);
             enemyAnimator.SetBool(IsRunningHash, false);
             enemyAnimator.SetBool(IsDieHash, true);
+            enabled = false;
             return;
         }
 
-        if (enemyState != null)
+        // Handle running
+        bool isMoving = (enemyState != null && !enemyState.isWaiting);
+        if (fov != null && fov.canSeePlayer)
         {
-            enemyAnimator.SetBool(IsRunningHash, !enemyState.isWaiting);
+            isMoving = true;
         }
+        enemyAnimator.SetBool(IsRunningHash, isMoving);
+    }
 
-        shootEffectCounter += Time.deltaTime;
-
-        bool canSee = fov != null && fov.canSeePlayer;
-
-        if (canSee)
+    private void TriggerShootAnimation()
+    {
+        if (shootAnimCoroutine != null)
         {
-            enemyAnimator.SetBool(IsRunningHash, true);
+            StopCoroutine(shootAnimCoroutine);
         }
+        shootAnimCoroutine = StartCoroutine(ShootPulseRoutine());
+    }
 
-        if (enemyShooting == null) return;
-        enemyAnimator.SetBool(IsFiringHash, enemyShooting.isFiring);
+    private IEnumerator ShootPulseRoutine()
+    {
+        enemyAnimator.SetBool(IsFiringHash, true);
+        yield return new WaitForSeconds(shootEffectDuration);
+        enemyAnimator.SetBool(IsFiringHash, false);
+        shootAnimCoroutine = null;
     }
 }
