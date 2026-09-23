@@ -7,6 +7,8 @@ public class MeleeAttack : MonoBehaviour
     [SerializeField] private Transform playerTransform;
 
     private float attackCoolDown;
+
+    public bool isAttack = false;
     private FieldOfView2D fov;
 
     void Awake()
@@ -19,16 +21,18 @@ void Update()
         if (attackCoolDown > 0)
             attackCoolDown -= Time.deltaTime;
 
+        isAttack = InRange();
         if (fov != null && fov.canSeePlayer && InRange() && attackCoolDown <= 0f)
         {
             Attack();
             attackCoolDown = timeBetweenAttack;
         }
+        
     }
 
     private bool InRange()
     {
-        return playerTransform != null &&
+        return playerTransform != null && !BodyMovement.Instance.isDead &&
                Vector2.Distance(transform.position, playerTransform.position) <= attackRange;
     }
 

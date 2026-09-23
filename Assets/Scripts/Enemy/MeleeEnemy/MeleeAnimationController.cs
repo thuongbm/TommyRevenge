@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class MeleeAnimationController : MonoBehaviour
@@ -5,9 +6,9 @@ public class MeleeAnimationController : MonoBehaviour
     [SerializeField] private Animator enemyAnimator;
     private EnemyHealth enemyHealth;
     private EnemyState enemyState;
+    private MeleeAttack meleeAttack;
     private FieldOfView2D fov;
 
-    [SerializeField] private float shootEffectCoolDown = 0.05f;
     private float shootEffectCounter;
 
     private static readonly int IsDieHash = Animator.StringToHash("isDie");
@@ -21,6 +22,7 @@ public class MeleeAnimationController : MonoBehaviour
 
         enemyHealth = GetComponent<EnemyHealth>();
         enemyState = GetComponent<EnemyState>();
+        meleeAttack = GetComponent<MeleeAttack>();
         fov = GetComponent<FieldOfView2D>();
     }
 
@@ -46,6 +48,11 @@ public class MeleeAnimationController : MonoBehaviour
         if (canSee)
         {
             enemyAnimator.SetBool(IsRunningHash, true);
+        }
+
+        if (meleeAttack != null)
+        {
+            enemyAnimator.SetBool(IsFiringHash, meleeAttack.isAttack);
         }
     }
 }
