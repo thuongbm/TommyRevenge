@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyShooting : MonoBehaviour
@@ -19,6 +20,8 @@ public class EnemyShooting : MonoBehaviour
     private float fireCoolDown;
     private FieldOfView2D fov;
 
+    public bool isFiring = false;
+
     void Awake()
     {
         fov = GetComponent<FieldOfView2D>();
@@ -35,16 +38,14 @@ public class EnemyShooting : MonoBehaviour
 
     if (fov != null && fov.canSeePlayer && fireCoolDown <= 0f)
     {
-        while (fireCoolDown <= 0f)
-        {
-            Shoot();
-            fireCoolDown += timeBetweenShoot; 
-        }
+        Shoot();
+        fireCoolDown = timeBetweenShoot; 
     }
 }
 
     public void Shoot()
     {
+        isFiring = true;
         if (bulletPrefab != null && firePoint != null)
         {
             Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);

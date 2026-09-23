@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator enemyAnimator;
     private EnemyHealth enemyHealth;
     private EnemyState enemyState;
+    private EnemyShooting enemyShooting;
     private FieldOfView2D fov;
 
     [SerializeField] private float shootEffectCoolDown = 0.05f;
@@ -21,15 +23,18 @@ public class EnemyAnimationController : MonoBehaviour
 
         enemyHealth = GetComponent<EnemyHealth>();
         enemyState = GetComponent<EnemyState>();
+        enemyShooting = GetComponent<EnemyShooting>();
         fov = GetComponent<FieldOfView2D>();
     }
 
-    void Update()
+void Update()
     {
         if (enemyAnimator == null) return;
 
         if (enemyHealth != null && enemyHealth.isDead)
         {
+            enemyAnimator.SetBool(IsFiringHash, false);
+            enemyAnimator.SetBool(IsRunningHash, false);
             enemyAnimator.SetBool(IsDieHash, true);
             return;
         }
@@ -47,5 +52,8 @@ public class EnemyAnimationController : MonoBehaviour
         {
             enemyAnimator.SetBool(IsRunningHash, true);
         }
+
+        if (enemyShooting == null) return;
+        enemyAnimator.SetBool(IsFiringHash, enemyShooting.isFiring);
     }
 }

@@ -3429,9 +3429,9 @@ GameObject:
   - component: {fileID: 1140871254}
   - component: {fileID: 1140871255}
   - component: {fileID: 1140871257}
-  - component: {fileID: 1140871258}
   - component: {fileID: 1140871259}
   - component: {fileID: 1140871260}
+  - component: {fileID: 1140871261}
   m_Layer: 9
   m_Name: MeleeEnemy
   m_TagString: Enemy
@@ -3682,23 +3682,6 @@ MonoBehaviour:
   attackRange: 1.2
   timeBetweenAttack: 1
   playerTransform: {fileID: 315082968}
---- !u!114 &1140871258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1140871247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7ae8dbe03026a41ad099c78d0e07ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MeleeEnemyHealth
-  enemyState: {fileID: 1140871248}
-  meleeAttack: {fileID: 1140871257}
-  boxCollider2D: {fileID: 1140871251}
-  fieldOfView2D: {fileID: 1140871255}
-  isDead: 0
 --- !u!114 &1140871259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3726,6 +3709,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MeleeAnimationController
   enemyAnimator: {fileID: 1140871249}
   shootEffectCoolDown: 0.05
+--- !u!114 &1140871261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140871247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6db1d5c9dd8ce645ac5623459b513c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  enemyState: {fileID: 1140871248}
+  enemyShooting: {fileID: 0}
+  meleeAttack: {fileID: 0}
+  boxCollider2D: {fileID: 1140871251}
+  fieldOfView2D: {fileID: 1140871255}
+  isDead: 0
 --- !u!1 &1143539682
 GameObject:
   m_ObjectHideFlags: 0

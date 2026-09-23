@@ -3,7 +3,7 @@ using UnityEngine;
 public class MeleeAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator enemyAnimator;
-    private MeleeEnemyHealth meleeEnemyHealth;
+    private EnemyHealth enemyHealth;
     private EnemyState enemyState;
     private FieldOfView2D fov;
 
@@ -19,7 +19,7 @@ public class MeleeAnimationController : MonoBehaviour
         if (enemyAnimator == null) 
             enemyAnimator = GetComponentInChildren<Animator>();
 
-        meleeEnemyHealth = GetComponent<MeleeEnemyHealth>();
+        enemyHealth = GetComponent<EnemyHealth>();
         enemyState = GetComponent<EnemyState>();
         fov = GetComponent<FieldOfView2D>();
     }
@@ -28,7 +28,7 @@ public class MeleeAnimationController : MonoBehaviour
     {
         if (enemyAnimator == null) return;
 
-        if (meleeEnemyHealth != null && meleeEnemyHealth.isDead)
+        if (enemyHealth != null && enemyHealth.isDead)
         {
             enemyAnimator.SetBool(IsDieHash, true);
             return;
