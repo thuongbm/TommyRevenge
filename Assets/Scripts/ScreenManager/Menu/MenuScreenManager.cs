@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class MenuScreenManager : MonoBehaviour
 {
-    public GameObject dialogueScreen;
     public GameObject chapterScreen;
     public GameObject chapterButton;
     public Transform chapterGridContainer;
@@ -14,7 +13,7 @@ public class MenuScreenManager : MonoBehaviour
 
     void Start()
     {
-        dialogueScreen.SetActive(false);
+        
     }
 
     public void PopulateChapter()

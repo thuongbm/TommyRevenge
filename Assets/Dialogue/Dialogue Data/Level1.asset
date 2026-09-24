@@ -15,8 +15,7 @@ MonoBehaviour:
   lines:
   - name: Lilys
     sentences:
-    - Hi, my des
-    - This is your first place
-  - name: Player
-    sentences:
-    - Nah, you lied to me
+    - Welcome
+    - You need to "WASD" to moverment
+    - Hover and click left mouse to fire
+    - Good luck!

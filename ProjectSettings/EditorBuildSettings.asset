@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Chapter1/Chapter1_Turtorial.unity
     guid: 94ce4b78d9433d44b960a340864774ec
+  - enabled: 1
+    path: Assets/Scenes/Levels/Chapter1/Chapter1_Level1.unity
+    guid: b2055c7221c15e5408de8eb86b72b3ff
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

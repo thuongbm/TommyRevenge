@@ -15,4 +15,4 @@ MonoBehaviour:
   name: Level 1
   sceneToLoad: Chapter1_Level1
   enemyTotal: 10
-  isUnlockedByDefault: True
+  isUnlockedByDefault: 
