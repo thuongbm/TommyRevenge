@@ -37,7 +37,7 @@ public class ChapterScreenManager : MonoBehaviour
 
             if (buttonUI != null)
             {
-                buttonUI.SetUp(levels[i], i == 0);
+                buttonUI.SetUp(levels[i], true); // TEMP: all levels unlocked for testing;
                 // buttonUI.SetUp(levels[i], i == 1);
             }
         }
