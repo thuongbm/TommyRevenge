@@ -20,7 +20,7 @@ public class LevelButtonUI : MonoBehaviour
             LevelStatus.enemyTotal = levelSO.enemyTotal;
             LevelStatus.ResetRun();
 
-            LevelManager.TotalEnemies(levelSO.enemyTotal);
+            LevelManager.TotalEnemies(levelSO.enemyTotal, levelSO.parTime);
 
             SceneManager.LoadScene(levelSO.sceneToLoad);
         });

@@ -2410,7 +2410,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fcf12369ffadd4f91c4a37830af651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuScreenManager
-  dialogueScreen: {fileID: 0}
   chapterScreen: {fileID: 437471915}
   chapterButton: {fileID: 4598796100303922001, guid: 490804f5f2a0e214488d074db0c822c3, type: 3}
   chapterGridContainer: {fileID: 1340133459}

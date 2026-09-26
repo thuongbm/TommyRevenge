@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 public class WinScreenManager : MonoBehaviour
 {
     [SerializeField] private GameObject winPanel;
+    [SerializeField] private TMPro.TextMeshProUGUI scoreText;
+    [SerializeField] private TMPro.TextMeshProUGUI timeText;
 
     void OnEnable()
     {
@@ -20,6 +22,18 @@ public class WinScreenManager : MonoBehaviour
         if (winPanel != null)
         {
             winPanel.SetActive(true);
+        }
+
+        if (scoreText != null)
+        {
+            scoreText.text = "Score: " + ScoreManager.TotalScore;
+        }
+
+        if (timeText != null)
+        {
+            int minutes = Mathf.FloorToInt(LevelManager.lastCompletionTime / 60f);
+            int seconds = Mathf.FloorToInt(LevelManager.lastCompletionTime % 60f);
+            timeText.text = string.Format("Time: {0:00}:{1:00}  (+{2} speed bonus)", minutes, seconds, LevelManager.lastSpeedBonus);
         }
     }
 

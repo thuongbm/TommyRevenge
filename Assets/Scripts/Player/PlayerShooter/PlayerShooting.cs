@@ -56,8 +56,10 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
-    public void Shoot()
+public void Shoot()
     {
+        LevelManager.StartTimerIfNeeded();
+
         foreach (float angle in spreadAngles)
         {
             Quaternion rotation = firePoint.rotation * Quaternion.Euler(0, 0, angle);

@@ -22,9 +22,49 @@ public class CameraFollowing : MonoBehaviour
     private Vector3 currentVelocity = Vector3.zero;
     private Camera cam;
 
-    private void Awake()
+    [Header("Screen Shake")]
+    [SerializeField] private float comboShakeMagnitude = 0.15f;
+    [SerializeField] private float comboShakeDuration = 0.2f;
+    [SerializeField] private float winShakeMagnitude = 0.35f;
+    [SerializeField] private float winShakeDuration = 0.5f;
+    private float shakeTimer = 0f;
+    private float shakeMagnitude = 0f;
+
+
+private void Awake()
     {
         cam = GetComponent<Camera>();
+    }
+
+    private void OnEnable()
+    {
+        ComboManager.OnComboIncreased += HandleComboIncreased;
+        LevelManager.OnLevelWon += HandleLevelWon;
+    }
+
+    private void OnDisable()
+    {
+        ComboManager.OnComboIncreased -= HandleComboIncreased;
+        LevelManager.OnLevelWon -= HandleLevelWon;
+    }
+
+    private void HandleComboIncreased(int multiplier)
+    {
+        if (multiplier >= 2)
+        {
+            Shake(comboShakeMagnitude, comboShakeDuration);
+        }
+    }
+
+    private void HandleLevelWon()
+    {
+        Shake(winShakeMagnitude, winShakeDuration);
+    }
+
+    public void Shake(float magnitude, float duration)
+    {
+        shakeMagnitude = magnitude;
+        shakeTimer = duration;
     }
 
     private void LateUpdate()
@@ -47,5 +87,12 @@ public class CameraFollowing : MonoBehaviour
         targetPosition.z = cameraZ;
 
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref currentVelocity, smoothTime);
+
+        if (shakeTimer > 0f)
+        {
+            shakeTimer -= Time.deltaTime;
+            Vector3 shakeOffset = (Vector3)UnityEngine.Random.insideUnitCircle * shakeMagnitude;
+            transform.position += shakeOffset;
+        }
     }
 }
