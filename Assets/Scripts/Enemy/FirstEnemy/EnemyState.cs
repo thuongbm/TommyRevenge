@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyState : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class EnemyState : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform playerTransform;
 
+    [SerializeField] private NavMeshAgent navMeshAgent;
+
     // [Header("Follow Player time")]
     // [SerializeField] float followPlayerTime = 2f;
     private float followPlayerCooldown;
@@ -40,6 +43,13 @@ void Awake()
     {
         fov = GetComponent<FieldOfView2D>();
         meleeAttack = GetComponent<MeleeAttack>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+
+        if (navMeshAgent != null)
+        {
+            navMeshAgent.updateRotation = false;
+            navMeshAgent.updateUpAxis = false;
+        }
     }
 
     void Start()
@@ -67,11 +77,13 @@ void Update()
                 }
                 else
                 {
+                    StopAgent();
                     RotateTowards(playerTransform.position);
                 }
             }
             else
             {
+                StopAgent();
                 RotateTowards(playerTransform.position);
             }
             return;
@@ -92,11 +104,34 @@ void Update()
     }
 
 
-    public void MoveTowardsTarget(Vector3 targetPosition, float currentSpeed)
+public void MoveTowardsTarget(Vector3 targetPosition, float currentSpeed)
     {
-        Vector3 target = new Vector3(targetPosition.x, targetPosition.y, transform.position.z);
-        transform.position = Vector3.MoveTowards(transform.position, target, currentSpeed * Time.deltaTime);
-        RotateTowards(target);
+        if (navMeshAgent != null && navMeshAgent.isOnNavMesh)
+        {
+            navMeshAgent.isStopped = false;
+            navMeshAgent.speed = currentSpeed;
+            navMeshAgent.SetDestination(targetPosition);
+
+            if (navMeshAgent.velocity.sqrMagnitude > 0.01f)
+            {
+                RotateTowards(transform.position + navMeshAgent.velocity);
+            }
+        }
+        else
+        {
+            Vector3 target = new Vector3(targetPosition.x, targetPosition.y, transform.position.z);
+            transform.position = Vector3.MoveTowards(transform.position, target, currentSpeed * Time.deltaTime);
+            RotateTowards(target);
+        }
+    }
+
+    private void StopAgent()
+    {
+        if (navMeshAgent != null && navMeshAgent.isOnNavMesh)
+        {
+            navMeshAgent.ResetPath();
+            navMeshAgent.velocity = Vector3.zero;
+        }
     }
 
     public void RotateTowards(Vector3 targetPosition)
