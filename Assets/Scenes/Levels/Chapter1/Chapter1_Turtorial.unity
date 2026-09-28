@@ -1020,6 +1020,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 964770394}
     m_Modifications:
     - target: {fileID: 2144092993702250015, guid: 8fc942abdc28ca645a24804a87391186, type: 3}
+      propertyPath: navMeshAgent
+      value: 
+      objectReference: {fileID: 2108474344}
+    - target: {fileID: 2144092993702250015, guid: 8fc942abdc28ca645a24804a87391186, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 315082968}
@@ -1241,6 +1245,8 @@ GameObject:
   - component: {fileID: 492398754}
   - component: {fileID: 492398753}
   - component: {fileID: 492398752}
+  - component: {fileID: 492398755}
+  - component: {fileID: 492398756}
   m_Layer: 8
   m_Name: Tilemap
   m_TagString: map
@@ -2219,6 +2225,49 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &492398755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492398750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NavMeshPlus::NavMeshPlus.Components.NavMeshModifier
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!50 &492398756
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492398750}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2651,6 +2700,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 540356015}
   m_CullTransparentMesh: 1
+--- !u!195 &555630036 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 6262985959899846827, guid: 8fc942abdc28ca645a24804a87391186, type: 3}
+  m_PrefabInstance: {fileID: 3025995998299903383}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &557764174
 GameObject:
   m_ObjectHideFlags: 0
@@ -4456,6 +4510,86 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1643449580}
   m_CullTransparentMesh: 1
+--- !u!1 &1738021755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1738021756}
+  - component: {fileID: 1738021758}
+  - component: {fileID: 1738021757}
+  m_Layer: 0
+  m_Name: MavMeshSurface
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1738021756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738021755}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.52188, y: -3.68889, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1738021757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738021755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e04976799df50f54ba128eff723155a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NavMeshPlus::NavMeshPlus.Components.NavMeshSurface
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_BuildHeightMesh: 0
+  m_MinRegionArea: 0
+  m_HideEditorLogs: 0
+  m_NavMeshData: {fileID: 23800000, guid: 810d826d6af5ad246a214b77aeeccd8a, type: 2}
+--- !u!114 &1738021758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738021755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70bd44a44cd62c64fbfc1eea95b24880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NavMeshPlus::NavMeshPlus.Extensions.CollectSources2d
+  m_OverrideByGrid: 0
+  m_UseMeshPrefab: {fileID: 0}
+  m_CompressBounds: 0
+  m_OverrideVector: {x: 1, y: 1, z: 1}
 --- !u!1 &1766570583
 GameObject:
   m_ObjectHideFlags: 0
@@ -8227,6 +8361,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab548cd235aaa345a58d1352e2dcc21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyState
+--- !u!195 &2108474344 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 6262985959899846827, guid: 8fc942abdc28ca645a24804a87391186, type: 3}
+  m_PrefabInstance: {fileID: 451616147}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3025995998299903383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8235,6 +8374,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 964770394}
     m_Modifications:
+    - target: {fileID: 2144092993702250015, guid: 8fc942abdc28ca645a24804a87391186, type: 3}
+      propertyPath: navMeshAgent
+      value: 
+      objectReference: {fileID: 555630036}
     - target: {fileID: 2144092993702250015, guid: 8fc942abdc28ca645a24804a87391186, type: 3}
       propertyPath: playerTransform
       value: 
@@ -8323,3 +8466,4 @@ SceneRoots:
   - {fileID: 132139928}
   - {fileID: 917044728}
   - {fileID: 875037682}
+  - {fileID: 1738021756}
