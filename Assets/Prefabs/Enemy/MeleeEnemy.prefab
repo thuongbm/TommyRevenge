@@ -216,7 +216,7 @@ MonoBehaviour:
   speed: 3
   alertSpeed: 5
   rotationSpeed: 720
-  stopDistance: 0.2
+  stopDistance: 0.9
   playerTransform: {fileID: 0}
   navMeshAgent: {fileID: 0}
   isWaiting: 0

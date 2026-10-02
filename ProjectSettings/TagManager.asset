@@ -23,7 +23,7 @@ TagManager:
   - Bullet
   - BulletCasing
   - Blood
-  - 
+  - Chattel
   - 
   - 
   - 
@@ -65,6 +65,9 @@ TagManager:
     locked: 0
   - name: Blood
     uniqueID: 221029159
+    locked: 0
+  - name: Chattel
+    uniqueID: 572527231
     locked: 0
   - name: Wall
     uniqueID: 1299840569
