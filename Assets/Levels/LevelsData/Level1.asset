@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelSO
   name: Level 1
   sceneToLoad: Chapter1_Level1
-  enemyTotal: 2
+  enemyTotal: 10
   parTime: 60
   isUnlockedByDefault: 
