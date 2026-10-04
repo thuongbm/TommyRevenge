@@ -12,7 +12,7 @@ public class PlayerDead : MonoBehaviour
         {
             boxCollider2D.enabled = false;
             playerMovement.enabled = false;
-
+            gameObject.SetActive(false);
             if (rb == null) rb = GetComponent<Rigidbody2D>();
             if (rb != null)
             {

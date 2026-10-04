@@ -7,29 +7,31 @@ public class BulletManager : MonoBehaviour
     [Header("Blood Splash Sound")]
     public AudioClip bloodSplashSound;
     private AudioSource audioSource;
-    // [SerializeField] private float maxLifetime = 4f;
 
-
-void Awake()
+    void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        Destroy(gameObject);
     }
     void Update()
     {
         transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
-private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet")) return;
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
             EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
+            // MeleeEnemyHealth meleeEnemyHealth = collision.gameObject.GetComponent<MeleeEnemyHealth>();
             if (enemyHealth != null && !enemyHealth.isDead)
             {
                 enemyHealth.isDead = true;
+                // meleeEnemyHealth.isDead = true;
+
+                Destroy(gameObject);
+
                 LevelManager.OnEnemyKilled();
             }
 
@@ -45,6 +47,9 @@ private void OnCollisionEnter2D(Collision2D collision)
             audioSource.PlayOneShot(bloodSplashSound);
         }
 
-        Destroy(gameObject);
+        if (collision.gameObject.CompareTag("map"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
