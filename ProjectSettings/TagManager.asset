@@ -23,7 +23,7 @@ TagManager:
   - Bullet
   - BulletCasing
   - Blood
-  - 
+  - Chattel
   - 
   - 
   - 
@@ -50,6 +50,9 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 3788002861
+    locked: 0
+  - name: Chattel
+    uniqueID: 1638689303
     locked: 0
   - name: Bullet
     uniqueID: 1423938579
