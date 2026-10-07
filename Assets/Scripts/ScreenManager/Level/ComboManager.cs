@@ -8,6 +8,16 @@ public class ComboManager : MonoBehaviour
     [SerializeField] private float comboWindow = 3f;
     [SerializeField] private int baseKillScore = 100;
 
+    private static readonly Color[] PopupPalette = new Color[]
+    {
+        new Color(1f, 0.15f, 0.75f),
+        new Color(0.1f, 0.9f, 0.75f),
+        new Color(1f, 0.85f, 0.1f),
+        new Color(1f, 0.45f, 0.1f),
+    };
+    private int popupColorIndex = 0;
+
+
     public int ComboMultiplier { get; private set; } = 1;
     public float ComboTimeRemaining { get; private set; } = 0f;
     public float ComboWindow => comboWindow;
@@ -32,7 +42,7 @@ public class ComboManager : MonoBehaviour
         }
     }
 
-    public void RegisterKill()
+public void RegisterKill(Vector3 killPosition)
     {
         if (ComboTimeRemaining > 0f)
         {
@@ -44,7 +54,14 @@ public class ComboManager : MonoBehaviour
         }
 
         ComboTimeRemaining = comboWindow;
-        ScoreManager.AddScore(baseKillScore * ComboMultiplier);
+
+        int points = baseKillScore * ComboMultiplier;
+        ScoreManager.AddScore(points);
+
+        Color popupColor = PopupPalette[popupColorIndex % PopupPalette.Length];
+        popupColorIndex++;
+        ScorePopup.Create(killPosition, points, popupColor);
+
         OnComboIncreased?.Invoke(ComboMultiplier);
     }
 

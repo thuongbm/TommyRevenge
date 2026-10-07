@@ -32,7 +32,7 @@ public class BulletManager : MonoBehaviour
 
                 Destroy(gameObject);
 
-                LevelManager.OnEnemyKilled();
+                LevelManager.OnEnemyKilled(collision.transform.position);
             }
 
             BloodManage bloodManage = collision.gameObject.GetComponent<BloodManage>();

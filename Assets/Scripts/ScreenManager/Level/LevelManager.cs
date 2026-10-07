@@ -41,14 +41,14 @@ public class LevelManager : MonoBehaviour
         levelStartTime = Time.time;
     }
 
-    public static void OnEnemyKilled()
+public static void OnEnemyKilled(Vector3 enemyPosition)
     {
         enemyKilled++;
         LevelStatus.enemyKilled = enemyKilled;
 
         if (ComboManager.Instance != null)
         {
-            ComboManager.Instance.RegisterKill();
+            ComboManager.Instance.RegisterKill(enemyPosition);
         }
 
         Debug.Log(enemyKilled);
