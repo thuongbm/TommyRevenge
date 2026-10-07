@@ -27,6 +27,11 @@ public class ComboManager : MonoBehaviour
 
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
     }
 
@@ -61,7 +66,6 @@ public void RegisterKill(Vector3 killPosition)
         Color popupColor = PopupPalette[popupColorIndex % PopupPalette.Length];
         popupColorIndex++;
         ScorePopup.Create(killPosition, points, popupColor);
-
         OnComboIncreased?.Invoke(ComboMultiplier);
     }
 

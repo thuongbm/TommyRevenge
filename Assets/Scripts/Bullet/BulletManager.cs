@@ -24,14 +24,24 @@ public class BulletManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
-            // MeleeEnemyHealth meleeEnemyHealth = collision.gameObject.GetComponent<MeleeEnemyHealth>();
+            MeleeEnemyHealth meleeEnemyHealth = collision.gameObject.GetComponent<MeleeEnemyHealth>();
+
+            bool killed = false;
+
             if (enemyHealth != null && !enemyHealth.isDead)
             {
                 enemyHealth.isDead = true;
-                // meleeEnemyHealth.isDead = true;
+                killed = true;
+            }
+            else if (meleeEnemyHealth != null && !meleeEnemyHealth.isDead)
+            {
+                meleeEnemyHealth.isDead = true;
+                killed = true;
+            }
 
+            if (killed)
+            {
                 Destroy(gameObject);
-
                 LevelManager.OnEnemyKilled(collision.transform.position);
             }
 
