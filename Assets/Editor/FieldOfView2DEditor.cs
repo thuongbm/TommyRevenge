@@ -9,20 +9,26 @@ public class FieldOfView2DEditor : Editor
     {
         FieldOfView2D fov = (FieldOfView2D)target;
 
-        Handles.color = Color.white;
-        Handles.DrawWireArc(fov.transform.position, Vector3.forward, Vector3.up, 360, fov.radius);
+        Vector3 eye = fov.EyePosition;
+        float facing = fov.transform.eulerAngles.z + fov.viewDirectionOffset;
 
-        Vector3 viewAngle01 = DirectionFromAngle(fov.transform.eulerAngles.z, -fov.angle / 2f);
-        Vector3 viewAngle02 = DirectionFromAngle(fov.transform.eulerAngles.z, fov.angle / 2f);
+        Handles.color = Color.white;
+        Handles.DrawWireArc(eye, Vector3.forward, Vector3.up, 360, fov.radius);
+
+        Vector3 viewAngle01 = DirectionFromAngle(facing, -fov.angle / 2f);
+        Vector3 viewAngle02 = DirectionFromAngle(facing, fov.angle / 2f);
 
         Handles.color = Color.yellow;
-        Handles.DrawLine(fov.transform.position, fov.transform.position + viewAngle01 * fov.radius);
-        Handles.DrawLine(fov.transform.position, fov.transform.position + viewAngle02 * fov.radius);
+        Handles.DrawLine(eye, eye + viewAngle01 * fov.radius);
+        Handles.DrawLine(eye, eye + viewAngle02 * fov.radius);
+
+        Handles.color = Color.cyan;
+        Handles.DrawSolidDisc(eye, Vector3.forward, 0.06f);
 
         if (fov.canSeePlayer && fov.playerRef != null)
         {
             Handles.color = Color.green;
-            Handles.DrawLine(fov.transform.position, fov.playerRef.transform.position);
+            Handles.DrawLine(eye, fov.playerRef.transform.position);
         }
     }
 
