@@ -172,7 +172,7 @@ public class BossMoverment : MonoBehaviour
         }
     }
 
-    private void Stop()
+    public void Stop()
     {
         isMoving = false;
         moveDirection = Vector2.zero;
@@ -192,7 +192,6 @@ public class BossMoverment : MonoBehaviour
     {
         if (direction.sqrMagnitude < 0.0001f) return;
 
-        // Same offset the FieldOfView2D uses, so the cone and the sprite always agree on "forward".
         float facingOffset = fieldOfView != null ? fieldOfView.viewDirectionOffset : 0f;
         float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - facingOffset;
         float newAngle = Mathf.MoveTowardsAngle(transform.eulerAngles.z, targetAngle, rotationSpeed * Time.deltaTime);
@@ -208,7 +207,6 @@ public class BossMoverment : MonoBehaviour
         }
     }
 
-    // When a health/death script disables this component the boss halts instead of coasting on leftover velocity.
     void OnDisable()
     {
         Stop();

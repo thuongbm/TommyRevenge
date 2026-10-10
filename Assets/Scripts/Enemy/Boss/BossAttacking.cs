@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class MeleeAttack : MonoBehaviour
+public class BossAttacking : MonoBehaviour
 {
     [SerializeField] private float attackRange = 1.2f;
     [SerializeField] private float timeBetweenAttack = 1f;
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private Animator animator;
 
     private float attackCoolDown;
 
@@ -19,13 +20,18 @@ public class MeleeAttack : MonoBehaviour
     void Update()
         {
             if (attackCoolDown > 0)
+            {
                 attackCoolDown -= Time.deltaTime;
+                
+            }
+                
 
             isAttack = InRange();
             if (fov != null && fov.canSeePlayer && InRange() && attackCoolDown <= 0f)
             {
                 Attack();
                 attackCoolDown = timeBetweenAttack;
+                animator.SetBool("isFriring", false);
             }
             
         }
@@ -41,5 +47,7 @@ public class MeleeAttack : MonoBehaviour
             Debug.Log("Attacked");
             BodyMovement.Instance.isDead = true;
             BloodPlayerManage.Instance.BloodSpalsh();
+            animator.SetBool("isFriring", true);
         }
-    }
+
+}
