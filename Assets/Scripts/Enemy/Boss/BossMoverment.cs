@@ -11,6 +11,10 @@ public class BossMoverment : MonoBehaviour
     [SerializeField] private float stopDistance = 1f;
     [SerializeField] private float rotationSpeed = 360f;
 
+    [Header("Spin skill")]
+    [Tooltip("While spinning the boss runs straight at the player and only stops this close.")]
+    [SerializeField] private float spinStopDistance = 0.5f;
+
     [Header("Behaviour")]
     [Tooltip("Seconds the boss keeps hunting the last place he saw the player after losing sight.")]
     [SerializeField] private float searchTime = 4f;
@@ -25,6 +29,7 @@ public class BossMoverment : MonoBehaviour
 
     private NavMeshAgent agent;
     private Rigidbody2D rb;
+    private PinkmanRoundAndRound skill;
 
     private BossState state = BossState.Idle;
     private Vector2 lastKnownPlayerPos;
@@ -32,12 +37,14 @@ public class BossMoverment : MonoBehaviour
     private bool isMoving;
     private float searchTimer;
     private float repathTimer;
-
+    private float currentSpeed;
+    private float currentStopDistance;
 
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody2D>();
+        skill = GetComponent<PinkmanRoundAndRound>();
 
         if (animator == null) animator = GetComponent<Animator>();
         if (fieldOfView == null) fieldOfView = GetComponent<FieldOfView2D>();
@@ -47,6 +54,9 @@ public class BossMoverment : MonoBehaviour
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null) playerPosition = player.transform;
         }
+
+        currentSpeed = speed;
+        currentStopDistance = stopDistance;
 
         if (agent != null)
         {
@@ -80,7 +90,13 @@ public class BossMoverment : MonoBehaviour
             return;
         }
 
-        bool canSee = fieldOfView != null && fieldOfView.canSeePlayer;
+        // The spin skill changes how the boss moves, but he keeps moving the whole time.
+        bool spinning = skill != null && skill.IsSpinning;
+        currentSpeed = speed * (skill != null ? skill.SpeedMultiplier : 1f);
+        currentStopDistance = spinning ? spinStopDistance : stopDistance;
+
+        // While spinning he homes in on the player even if the view cone has lost him.
+        bool canSee = spinning || (fieldOfView != null && fieldOfView.canSeePlayer);
         Vector2 position = transform.position;
         Vector2 playerPos = playerPosition.position;
 
@@ -119,10 +135,13 @@ public class BossMoverment : MonoBehaviour
                 break;
         }
 
-
         // Keep the view cone on the player while he is visible, otherwise look where we are walking.
-        Vector2 faceDirection = canSee ? playerPos - position : moveDirection;
-        FaceDirection(faceDirection);
+        // While spinning the animation does the visual work, so don't turn the body as well.
+        if (!spinning)
+        {
+            Vector2 faceDirection = canSee ? playerPos - position : moveDirection;
+            FaceDirection(faceDirection);
+        }
 
         SetRunningAnimation();
     }
@@ -131,7 +150,7 @@ public class BossMoverment : MonoBehaviour
     {
         Vector2 position = transform.position;
 
-        if (Vector2.Distance(position, target) <= stopDistance)
+        if (Vector2.Distance(position, target) <= currentStopDistance)
         {
             Stop();
             return;
@@ -142,7 +161,8 @@ public class BossMoverment : MonoBehaviour
         if (agent != null && agent.isOnNavMesh)
         {
             agent.isStopped = false;
-            agent.speed = speed;
+            agent.speed = currentSpeed;
+            agent.stoppingDistance = currentStopDistance;
 
             repathTimer -= Time.deltaTime;
             if (repathTimer <= 0f)
@@ -159,11 +179,11 @@ public class BossMoverment : MonoBehaviour
 
             if (rb != null && rb.bodyType == RigidbodyType2D.Dynamic)
             {
-                rb.linearVelocity = moveDirection * speed;
+                rb.linearVelocity = moveDirection * currentSpeed;
             }
             else
             {
-                transform.position += (Vector3)(moveDirection * speed * Time.deltaTime);
+                transform.position += (Vector3)(moveDirection * currentSpeed * Time.deltaTime);
             }
         }
     }
@@ -188,6 +208,7 @@ public class BossMoverment : MonoBehaviour
     {
         if (direction.sqrMagnitude < 0.0001f) return;
 
+        // Same offset the FieldOfView2D uses, so the cone and the sprite always agree on "forward".
         float facingOffset = fieldOfView != null ? fieldOfView.viewDirectionOffset : 0f;
         float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - facingOffset;
         float newAngle = Mathf.MoveTowardsAngle(transform.eulerAngles.z, targetAngle, rotationSpeed * Time.deltaTime);
@@ -203,6 +224,7 @@ public class BossMoverment : MonoBehaviour
         }
     }
 
+    // When a health/death script disables this component the boss halts instead of coasting on leftover velocity.
     void OnDisable()
     {
         Stop();

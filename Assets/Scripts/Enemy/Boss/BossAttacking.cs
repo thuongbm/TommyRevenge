@@ -7,6 +7,10 @@ public class BossAttacking : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Animator animator;
 
+    [Header("Attack sound")]
+    [SerializeField] private AudioClip swordSound;
+    private AudioSource audioSource;
+
     private float attackCoolDown;
 
     public bool isAttack = false;
@@ -15,6 +19,8 @@ public class BossAttacking : MonoBehaviour
     void Awake()
     {
         fov = GetComponent<FieldOfView2D>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -40,11 +46,11 @@ public class BossAttacking : MonoBehaviour
                 Vector2.Distance(transform.position, playerTransform.position) <= attackRange;
         }
 
-        public void Attack()
+        public void AttackNormal()
         {
             Debug.Log("Attacked");
             BodyMovement.Instance.isDead = true;
+            audioSource.PlayOneShot(swordSound);
             BloodPlayerManage.Instance.BloodSpalsh();
         }
-
 }

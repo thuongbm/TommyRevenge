@@ -57,7 +57,7 @@ public class BulletManager : MonoBehaviour
             audioSource.PlayOneShot(bloodSplashSound);
         }
 
-        if (collision.gameObject.CompareTag("map"))
+        if (collision.gameObject.CompareTag("map") || collision.gameObject.CompareTag("pinkManSword"))
         {
             Destroy(gameObject);
         }
