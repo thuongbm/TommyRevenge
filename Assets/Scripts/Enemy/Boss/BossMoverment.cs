@@ -218,11 +218,13 @@ public class BossMoverment : MonoBehaviour
 
     private void SetRunningAnimation()
     {
-        if (animator != null && animator.isActiveAndEnabled)
-        {
-            animator.SetBool(IsRunningHash, isMoving);
-        }
+        if (animator == null || !animator.isActiveAndEnabled) return;
+
+        // While spinning the Skill E animation plays exclusively — don't override it with isRunning.
+        bool spinning = skill != null && skill.IsSpinning;
+        animator.SetBool(IsRunningHash, !spinning && isMoving);
     }
+
 
     // When a health/death script disables this component the boss halts instead of coasting on leftover velocity.
     void OnDisable()
