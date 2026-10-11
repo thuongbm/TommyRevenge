@@ -29,9 +29,7 @@ public class BossAttacking : MonoBehaviour
             isAttack = InRange();
             if (fov != null && fov.canSeePlayer && InRange() && attackCoolDown <= 0f)
             {
-                Attack();
                 attackCoolDown = timeBetweenAttack;
-                animator.SetBool("isFriring", false);
             }
             
         }
@@ -42,12 +40,11 @@ public class BossAttacking : MonoBehaviour
                 Vector2.Distance(transform.position, playerTransform.position) <= attackRange;
         }
 
-        private void Attack()
+        public void Attack()
         {
             Debug.Log("Attacked");
             BodyMovement.Instance.isDead = true;
             BloodPlayerManage.Instance.BloodSpalsh();
-            animator.SetBool("isFriring", true);
         }
 
 }

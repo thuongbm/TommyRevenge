@@ -8,7 +8,7 @@ public class BossMoverment : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float speed = 3f;
     [Tooltip("The boss stops this far from the player instead of walking into him.")]
-    [SerializeField] private float stopDistance = 1.5f;
+    [SerializeField] private float stopDistance = 1f;
     [SerializeField] private float rotationSpeed = 360f;
 
     [Header("Behaviour")]
@@ -33,9 +33,6 @@ public class BossMoverment : MonoBehaviour
     private float searchTimer;
     private float repathTimer;
 
-    // True while the boss can see the player and has closed in to stopDistance.
-    // Hook your attack script up to this.
-    public bool IsPlayerInRange { get; private set; }
 
     void Awake()
     {
@@ -77,7 +74,7 @@ public class BossMoverment : MonoBehaviour
         if (BodyMovement.Instance != null && BodyMovement.Instance.isDead)
         {
             state = BossState.Idle;
-            IsPlayerInRange = false;
+
             Stop();
             SetRunningAnimation();
             return;
@@ -122,7 +119,6 @@ public class BossMoverment : MonoBehaviour
                 break;
         }
 
-        IsPlayerInRange = canSee && Vector2.Distance(position, playerPos) <= stopDistance + 0.25f;
 
         // Keep the view cone on the player while he is visible, otherwise look where we are walking.
         Vector2 faceDirection = canSee ? playerPos - position : moveDirection;
