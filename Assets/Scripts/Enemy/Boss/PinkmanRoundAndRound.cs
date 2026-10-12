@@ -30,6 +30,9 @@ public class PinkmanRoundAndRound : MonoBehaviour
     public bool IsSpinning { get; private set; }
     // 1 normally, spinSpeedMultiplier while spinning (BossMoverment reads this).
     public float SpeedMultiplier => IsSpinning ? spinSpeedMultiplier : 1f;
+    // True khi cooldown kết thúc và điều kiện bắt đầu chiêu đã thỏa mãn.
+    // BossAnimationController đọc property này để quyết định có nên kích hoạt chiêu không.
+    public bool IsReady => skillCounter <= 0f && !IsSpinning && CanStartSpin();
 
     void Awake()
     {
@@ -60,10 +63,8 @@ public class PinkmanRoundAndRound : MonoBehaviour
             skillCounter -= Time.deltaTime;
         }
 
-        if (skillCounter <= 0f && CanStartSpin())
-        {
-            StartSpin();
-        }
+        // Việc quyết định BẮT ĐẦU chiêu được giao cho BossAnimationController
+        // để đảm bảo thứ tự ưu tiên: ThrowSword > RoundAndRound > NormalAttack.
     }
 
     private bool CanStartSpin()
