@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Bullet
   - BulletCasing
+  - pinkManSword
+  - Sword
   layers:
   - Default
   - TransparentFX
@@ -24,7 +26,7 @@ TagManager:
   - BulletCasing
   - Blood
   - Chattel
-  - 
+  - Sword
   - 
   - 
   - 
@@ -56,6 +58,9 @@ TagManager:
     locked: 0
   - name: Bullet
     uniqueID: 1423938579
+    locked: 0
+  - name: Sword
+    uniqueID: 2114470319
     locked: 0
   - name: BulletCasing
     uniqueID: 3243891369
