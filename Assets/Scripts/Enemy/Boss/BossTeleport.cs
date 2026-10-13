@@ -22,6 +22,8 @@ public class BossTeleport : MonoBehaviour
     [SerializeField] private AnimationClip vanishClip;
     [Tooltip("Prefab spawn tại vị trí kiếm khi Boss xuất hiện (e.g. Explorsion).")]
     [SerializeField] private GameObject appearVFXPrefab;
+    [Tooltip("Seconds before the appear VFX is destroyed (match the explosion animation length).")]
+    [SerializeField] private float vfxLifetime = 0.5f;
 
     private static readonly int IsTeleportHash = Animator.StringToHash("isTeleport");
 
@@ -107,7 +109,10 @@ public class BossTeleport : MonoBehaviour
 
         // --- PHASE 3: Xuất hiện + VFX ---
         if (appearVFXPrefab != null)
-            Instantiate(appearVFXPrefab, destination, Quaternion.identity);
+        {
+            GameObject vfx = Instantiate(appearVFXPrefab, destination, Quaternion.identity);
+            Destroy(vfx, vfxLifetime);
+        }
 
         yield return new WaitForSeconds(appearDuration);
 

@@ -29,8 +29,8 @@ public class PinkManThrowSword : MonoBehaviour
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null) player = playerObj.transform;
 
-        // Bắt đầu với cooldown đầy để Boss không ném ngay khi vào scene.
-        skillCounter = skillCoolDown;
+        // Ném kiếm là chiêu ưu tiên số 1: sẵn sàng ngay khi Boss thấy player lần đầu.
+        skillCounter = 0f;
     }
 
     void Update()

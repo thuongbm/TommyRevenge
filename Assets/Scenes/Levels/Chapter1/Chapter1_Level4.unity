@@ -737,7 +737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1890626ff91a8f4bb99dd5e10e6cccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMoverment
-  speed: 5
+  speed: 10
   movementInput: {x: 0, y: 0}
   groundLayer:
     serializedVersion: 2
@@ -995,6 +995,7 @@ GameObject:
   - component: {fileID: 320266610}
   - component: {fileID: 320266611}
   - component: {fileID: 320266609}
+  - component: {fileID: 320266612}
   m_Layer: 9
   m_Name: pinkMan
   m_TagString: Enemy
@@ -1184,7 +1185,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -506964435
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 3383465374490282851, guid: 6906af001b7b9c643b8fcda188420a1f, type: 3}
@@ -1384,6 +1385,26 @@ MonoBehaviour:
   skillCoolDown: 8
   maxThrowRange: 10
   minThrowRange: 2
+--- !u!114 &320266612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320266596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff30fa29f32d07439852699995ea777, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossTeleport
+  swordManager: {fileID: 5724637136365547449, guid: a727e533310cd4b4bab8245b80d96d36, type: 3}
+  bossAnimator: {fileID: 320266601}
+  teleportDelay: 0.6
+  travelDuration: 0.4
+  appearDuration: 0.3
+  autoTeleport: 1
+  vanishClip: {fileID: 7400000, guid: f6866421425318b42b6e7b305854d985, type: 2}
+  appearVFXPrefab: {fileID: 755561147760564689, guid: f8bc963f53d7ebf49aca828e1f1661fa, type: 3}
 --- !u!1 &480418242
 GameObject:
   m_ObjectHideFlags: 0
@@ -1640,7 +1661,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1299840569
-  m_SortingLayer: 10
+  m_SortingLayer: 11
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -3785,7 +3806,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 000000002704df82573c810539fe794d2d56c8e1955595071394df54a9da59c127a32c0daf41087e
+  m_ApplyToSortingLayers: 000000002704df82573c810539fe794d2d56c8e1955595071394df54a9da59c127a32c0daf41087e9b76a152
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -4851,7 +4872,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 92355671
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -3500298161762141900, guid: 2d45db08bc35f6840a8ccf9e5a48e34a, type: 3}
@@ -5783,7 +5804,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 127227285
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -5062398570502169423, guid: b4e225d7f49030444a1368bc7529eb22, type: 3}

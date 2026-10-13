@@ -43,6 +43,9 @@ public class PinkmanRoundAndRound : MonoBehaviour
         if (playerObject != null) player = playerObject.transform;
 
         if (skillECircle != null) skillECircle.SetActive(false);
+
+        // Xoay kiếm là chiêu ưu tiên số 2: bắt đầu bằng cooldown đầy để không chen lên trước Ném kiếm.
+        skillCounter = skillCooldown;
     }
 
     void Update()
