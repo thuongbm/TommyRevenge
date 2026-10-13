@@ -992,8 +992,9 @@ GameObject:
   - component: {fileID: 320266606}
   - component: {fileID: 320266607}
   - component: {fileID: 320266608}
-  - component: {fileID: 320266609}
   - component: {fileID: 320266610}
+  - component: {fileID: 320266611}
+  - component: {fileID: 320266609}
   m_Layer: 9
   m_Name: pinkMan
   m_TagString: Enemy
@@ -1015,6 +1016,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1756958918}
+  - {fileID: 886904825}
   m_Father: {fileID: 964770394}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &320266601
@@ -1365,6 +1367,23 @@ MonoBehaviour:
   triggerRange: 7
   hitRadius: 1.8
   swordSound: {fileID: 8300000, guid: cc3c9f0f726c5874c80bc7a5ade97a60, type: 3}
+--- !u!114 &320266611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320266596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d57f9529724a5409c541bbc0fb652d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PinkManThrowSword
+  throwPoint: {fileID: 886904825}
+  swordPrefab: {fileID: 1884799904147297653, guid: a727e533310cd4b4bab8245b80d96d36, type: 3}
+  skillCoolDown: 8
+  maxThrowRange: 10
+  minThrowRange: 2
 --- !u!1 &480418242
 GameObject:
   m_ObjectHideFlags: 0
@@ -4335,6 +4354,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &886904824
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 886904825}
+  m_Layer: 9
+  m_Name: throwPont
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &886904825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886904824}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.65, y: -1.29, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 320266597}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &917044726
 GameObject:

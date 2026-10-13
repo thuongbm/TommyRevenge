@@ -16,24 +16,25 @@ using UnityEngine;
 public class BossAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator enemyAnimator;
-    private BossAttacking        bossAttacking;
+    private BossAttacking bossAttacking;
     private PinkmanRoundAndRound pinkmanRoundAndRound;
-    private PinkManThrowSword    pinkManThrowSword;
-    private BossMoverment        bossMoverment;
+    private PinkManThrowSword pinkManThrowSword;
+    private BossMoverment bossMoverment;
 
     private static readonly int IsFiringHash   = Animator.StringToHash("isFiring");
     private static readonly int IsSkillEHash   = Animator.StringToHash("isSkillE");
     private static readonly int IsRunningHash  = Animator.StringToHash("isRunning");
     private static readonly int IsThrowingHash = Animator.StringToHash("isThrowing");
+    private static readonly int IsTeleportHash = Animator.StringToHash("isTeleport");
 
     void Awake()
     {
         if (enemyAnimator == null) enemyAnimator = GetComponent<Animator>();
 
-        bossAttacking        = GetComponent<BossAttacking>();
+        bossAttacking = GetComponent<BossAttacking>();
         pinkmanRoundAndRound = GetComponent<PinkmanRoundAndRound>();
-        pinkManThrowSword    = GetComponent<PinkManThrowSword>();
-        bossMoverment        = GetComponent<BossMoverment>();
+        pinkManThrowSword = GetComponent<PinkManThrowSword>();
+        bossMoverment = GetComponent<BossMoverment>();
     }
 
     void Update()
@@ -50,10 +51,6 @@ public class BossAnimationController : MonoBehaviour
             return;
         }
 
-        // ─────────────────────────────────────────────────────────────
-        // PRIORITY 2 (ĐÃ ĐANG DIỄN RA): Xoay kiếm đang chạy
-        //   → Giữ cho hoàn thành, block hết các chiêu còn lại.
-        // ─────────────────────────────────────────────────────────────
         bool spinning = pinkmanRoundAndRound != null && pinkmanRoundAndRound.IsSpinning;
         if (spinning)
         {
@@ -64,11 +61,6 @@ public class BossAnimationController : MonoBehaviour
             return;
         }
 
-        // ─────────────────────────────────────────────────────────────
-        // PRIORITY 1 (ĐÃ ĐANG DIỄN RA): Animation ném kiếm đang phát
-        //   → Chờ animation kết thúc (HasExitTime trong controller),
-        //     không chen ngang bằng bất kỳ chiêu nào.
-        // ─────────────────────────────────────────────────────────────
         bool throwAnimPlaying = enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("bossThrowSword");
         if (throwAnimPlaying)
         {

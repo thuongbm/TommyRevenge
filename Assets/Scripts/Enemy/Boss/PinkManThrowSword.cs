@@ -19,6 +19,9 @@ public class PinkManThrowSword : MonoBehaviour
     // True khi cooldown kết thúc và Boss đang trong điều kiện sẵn sàng ném.
     public bool IsThrowing { get; private set; }
 
+    // Thanh kiếm hiện đang bay / đã cắm — BossTeleport đọc để biết cần teleport tới đâu.
+    public SwordManager CurrentSword { get; private set; }
+
     void Awake()
     {
         fov = GetComponent<FieldOfView2D>();
@@ -68,6 +71,9 @@ public class PinkManThrowSword : MonoBehaviour
         // Truyền hướng bay vào SwordManager để kiếm đi đúng hướng.
         SwordManager sm = sword.GetComponent<SwordManager>();
         if (sm != null) sm.SetDirection(direction);
+
+        // Lưu lại để BossTeleport biết thanh kiếm đang hoạt động.
+        CurrentSword = sm;
 
         skillCounter = skillCoolDown;
         IsThrowing = false;

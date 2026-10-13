@@ -1,46 +1,52 @@
-using System.Collections;
 using UnityEngine;
 
 public class SwordManager : MonoBehaviour
 {
     [SerializeField] private float speed = 8f;
-    
-    [SerializeField] private float slowMultiplier = 0.5f; 
-    
-    [SerializeField] private float slowDuration = 2f; 
+
+    [SerializeField] private float slowMultiplier = 0.5f;
+
+    [SerializeField] private float slowDuration = 2f;
 
     [Header("Sword Stop Settings")]
+    [Tooltip("How long the sword stays where it landed after touching the player.")]
     [SerializeField] private float stopTime = 2f;
 
     [Header("Auto Despawn")]
-    [Tooltip("Kiếm sẽ tự hủy sau thời gian này (giây) nếu không trúng gì.")]
+    [Tooltip("A sword that is still flying after this many seconds disappears.")]
     [SerializeField] private float lifetime = 6f;
 
-    private bool isStopped = false;
+    // True once the sword has touched the player and is staying where it landed.
+    public bool isStopped = false;
     private Collider2D swordCollider;
+    [SerializeField] private Animator swordAnimator;
 
-    // Hướng bay (được gán bởi PinkManThrowSword sau khi Instantiate).
+    private SpriteRenderer spriteRenderer;
     private Vector2 flyDirection = Vector2.right;
+    private float flyTimer;
+    private float stopTimer;
 
     void Start()
     {
         swordCollider = GetComponent<Collider2D>();
-        // Tự hủy sau lifetime giây để tránh rác khi bắn trượt.
-        Destroy(gameObject, lifetime);
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     void Update()
     {
-        if (!isStopped)
+        if (isStopped)
         {
-            // Dùng Space.World để kiếm bay theo hướng thế giới, không phụ thuộc góc xoay cục bộ.
-            transform.Translate(flyDirection * speed * Time.deltaTime, Space.World);
+            stopTimer -= Time.deltaTime;
+            if (stopTimer <= 0f) Destroy(gameObject);
+            return;
         }
+
+        transform.Translate(flyDirection * speed * Time.deltaTime, Space.World);
+
+        flyTimer += Time.deltaTime;
+        if (flyTimer >= lifetime) Destroy(gameObject);
     }
 
-    /// <summary>
-    /// Được gọi bởi PinkManThrowSword ngay sau Instantiate để thiết lập hướng bay.
-    /// </summary>
     public void SetDirection(Vector2 direction)
     {
         flyDirection = direction.normalized;
@@ -52,31 +58,46 @@ public class SwordManager : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            // Chỉ làm chậm nếu player chưa chết.
             if (PlayerMovement.Instance != null)
             {
                 PlayerMovement.Instance.ApplySlowDown(slowMultiplier, slowDuration);
             }
-            StartCoroutine(StopAndDespawnRoutine());
+
+            StopHere();
         }
-        else if (!collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("map"))
         {
-            // Trúng vật cản (tường, sàn...) → hủy ngay.
-            Destroy(gameObject);
+            StopHere();
         }
     }
 
-    private IEnumerator StopAndDespawnRoutine()
+    // The sword stays exactly where it touched the player.
+    private void StopHere()
     {
-        isStopped = true; 
-        
-        if (swordCollider != null)
-        {
-            swordCollider.enabled = false; 
-        }
+        isStopped = true;
+        stopTimer = stopTime;
 
-        yield return new WaitForSeconds(stopTime);
-        
-        Destroy(gameObject); 
+        if (swordCollider == null) swordCollider = GetComponent<Collider2D>();
+        if (swordCollider != null) swordCollider.enabled = false;
+
+        if (swordAnimator != null) swordAnimator.SetBool("isTouched", true);
+
+        // Thông báo vị trí cho BossTeleport ngay lập tức (trước khi sword bị Destroy).
+        BossTeleport bossTeleport = FindFirstObjectByType<BossTeleport>();
+        if (bossTeleport != null) bossTeleport.OnSwordStopped(SwordLocation());
+    }
+
+    // Where the sword visually sits (centre of its sprite), so the boss lands on the sword and not on its pivot.
+    public Vector2 SwordLocation()
+    {
+        if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        return spriteRenderer != null ? (Vector2)spriteRenderer.bounds.center : (Vector2)transform.position;
+    }
+
+    // The boss teleported to the sword, so it is used up.
+    public void Consume()
+    {
+        Destroy(gameObject);
     }
 }

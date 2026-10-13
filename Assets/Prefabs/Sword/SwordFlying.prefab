@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5724637136365547449}
   m_Layer: 15
   m_Name: SwordFlying
-  m_TagString: Untagged
+  m_TagString: Sword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,7 +132,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.4848485, y: -0.375}
+    pivot: {x: 0.4848485, y: 0.425}
     oldSize: {x: 1.03125, y: 1.25}
     newSize: {x: 0.33, y: 0.4}
     adaptiveTilingThreshold: 0.5
@@ -206,3 +206,5 @@ MonoBehaviour:
   slowMultiplier: 0.5
   slowDuration: 2
   stopTime: 2
+  lifetime: 6
+  swordAnimator: {fileID: 6873079705280495126}
