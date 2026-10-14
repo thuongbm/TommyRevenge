@@ -19,12 +19,15 @@ public class BossAnimationController : MonoBehaviour
     private BossAttacking bossAttacking;
     private PinkmanRoundAndRound pinkmanRoundAndRound;
     private PinkManThrowSword pinkManThrowSword;
+    private BossAirstrikeSkill bossAirstrikeSkill;
     private BossMoverment bossMoverment;
 
     private static readonly int IsFiringHash   = Animator.StringToHash("isFiring");
     private static readonly int IsSkillEHash   = Animator.StringToHash("isSkillE");
     private static readonly int IsRunningHash  = Animator.StringToHash("isRunning");
     private static readonly int IsThrowingHash = Animator.StringToHash("isThrowing");
+    private static readonly int IsCallingHash = Animator.StringToHash("isCalling");
+
     private static readonly int IsTeleportHash = Animator.StringToHash("isTeleport");
 
     void Awake()
@@ -35,15 +38,13 @@ public class BossAnimationController : MonoBehaviour
         pinkmanRoundAndRound = GetComponent<PinkmanRoundAndRound>();
         pinkManThrowSword = GetComponent<PinkManThrowSword>();
         bossMoverment = GetComponent<BossMoverment>();
+        bossAirstrikeSkill = GetComponent<BossAirstrikeSkill>();
     }
 
     void Update()
     {
         if (enemyAnimator == null) return;
 
-        // ─────────────────────────────────────────────────────────────
-        // Nếu Boss (hoặc Player) đã chết → tắt hết skill, thoát sớm.
-        // ─────────────────────────────────────────────────────────────
         bool playerDead = BodyMovement.Instance != null && BodyMovement.Instance.isDead;
         if (playerDead)
         {
@@ -58,6 +59,7 @@ public class BossAnimationController : MonoBehaviour
             enemyAnimator.SetBool(IsSkillEHash,   true);
             enemyAnimator.SetBool(IsRunningHash,  false);
             enemyAnimator.SetBool(IsFiringHash,   false);
+            enemyAnimator.SetBool(IsCallingHash, false);
             return;
         }
 
@@ -68,6 +70,7 @@ public class BossAnimationController : MonoBehaviour
             enemyAnimator.SetBool(IsThrowingHash, false);
             enemyAnimator.SetBool(IsSkillEHash,   false);
             enemyAnimator.SetBool(IsFiringHash,   false);
+            enemyAnimator.SetBool(IsCallingHash, false);
             return;
         }
 
@@ -77,16 +80,29 @@ public class BossAnimationController : MonoBehaviour
 
         bool throwReady = pinkManThrowSword    != null && pinkManThrowSword.IsThrowing;
         bool spinReady  = pinkmanRoundAndRound != null && pinkmanRoundAndRound.IsReady;
+        bool callReady = bossAirstrikeSkill != null && (bossAirstrikeSkill.isCalling || bossAirstrikeSkill.IsReady);
 
         // ── PRIORITY 1: Ném kiếm ─────────────────────────────────────
         if (throwReady)
         {
             enemyAnimator.SetBool(IsThrowingHash, true);
             enemyAnimator.SetBool(IsSkillEHash,   false);
+            enemyAnimator.SetBool(IsCallingHash, false);
             enemyAnimator.SetBool(IsFiringHash,   false);
             return;
         }
         enemyAnimator.SetBool(IsThrowingHash, false);
+        
+        if (callReady)
+        {
+            if (bossAirstrikeSkill.IsReady) bossAirstrikeSkill.StartCall();
+            enemyAnimator.SetBool(IsCallingHash, true);
+            enemyAnimator.SetBool(IsThrowingHash, false);
+            enemyAnimator.SetBool(IsSkillEHash,   false);
+            enemyAnimator.SetBool(IsFiringHash,   false);
+            return;
+        }
+        enemyAnimator.SetBool(IsCallingHash, false);
 
         // ── PRIORITY 2: Xoay kiếm ────────────────────────────────────
         if (spinReady)
@@ -95,6 +111,7 @@ public class BossAnimationController : MonoBehaviour
             enemyAnimator.SetBool(IsSkillEHash,  true);
             enemyAnimator.SetBool(IsRunningHash, false);
             enemyAnimator.SetBool(IsFiringHash,  false);
+            enemyAnimator.SetBool(IsCallingHash, false);
             return;
         }
         enemyAnimator.SetBool(IsSkillEHash, false);
@@ -111,5 +128,6 @@ public class BossAnimationController : MonoBehaviour
         enemyAnimator.SetBool(IsThrowingHash, false);
         enemyAnimator.SetBool(IsSkillEHash,   false);
         enemyAnimator.SetBool(IsFiringHash,   false);
+        enemyAnimator.SetBool(IsCallingHash, false);
     }
 }

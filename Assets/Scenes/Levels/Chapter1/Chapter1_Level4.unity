@@ -1405,6 +1405,7 @@ MonoBehaviour:
   autoTeleport: 1
   vanishClip: {fileID: 7400000, guid: f6866421425318b42b6e7b305854d985, type: 2}
   appearVFXPrefab: {fileID: 755561147760564689, guid: f8bc963f53d7ebf49aca828e1f1661fa, type: 3}
+  vfxLifetime: 0.5
 --- !u!1 &480418242
 GameObject:
   m_ObjectHideFlags: 0
@@ -3806,7 +3807,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 000000002704df82573c810539fe794d2d56c8e1955595071394df54a9da59c127a32c0daf41087e9b76a152
+  m_ApplyToSortingLayers: 000000002704df82573c810539fe794d2d56c8e1955595071394df54a9da59c127a32c0daf41087e9b76a152a1c18a39
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0

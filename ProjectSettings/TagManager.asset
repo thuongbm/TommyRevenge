@@ -28,7 +28,7 @@ TagManager:
   - Chattel
   - Sword
   - Explosion
-  - 
+  - Aircraft
   - 
   - 
   - 
@@ -79,6 +79,9 @@ TagManager:
     locked: 0
   - name: Wall
     uniqueID: 1299840569
+    locked: 0
+  - name: Aircraft
+    uniqueID: 965394849
     locked: 0
   m_RenderingLayers:
   - Default

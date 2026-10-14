@@ -18,9 +18,7 @@ public class BossTeleport : MonoBehaviour
     [SerializeField] private bool autoTeleport = true;
 
     [Header("VFX")]
-    [Tooltip("Animation clip biến mất của Boss (bossTeleport.anim). Code tự đọc độ dài để chờ đúng.")]
     [SerializeField] private AnimationClip vanishClip;
-    [Tooltip("Prefab spawn tại vị trí kiếm khi Boss xuất hiện (e.g. Explorsion).")]
     [SerializeField] private GameObject appearVFXPrefab;
     [Tooltip("Seconds before the appear VFX is destroyed (match the explosion animation length).")]
     [SerializeField] private float vfxLifetime = 0.5f;
