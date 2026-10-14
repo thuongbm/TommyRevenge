@@ -23,6 +23,21 @@ public class BulletManager : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            BossHealth bossHealth = collision.gameObject.GetComponent<BossHealth>();
+            if (bossHealth != null)
+            {
+                if (!bossHealth.isDead) bossHealth.TakeDamage(1);
+
+                BloodManage bossBlood = collision.gameObject.GetComponent<BloodManage>();
+                if (bossBlood != null) bossBlood.BloodSpalsh();
+
+                if (bloodSplashSound != null)
+                    AudioSource.PlayClipAtPoint(bloodSplashSound, transform.position);
+
+                Destroy(gameObject);
+                return;
+            }
+
             EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
             MeleeEnemyHealth meleeEnemyHealth = collision.gameObject.GetComponent<MeleeEnemyHealth>();
 
