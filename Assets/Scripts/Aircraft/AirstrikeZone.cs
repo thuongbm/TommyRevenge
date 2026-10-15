@@ -16,10 +16,13 @@ public class AirstrikeZone : MonoBehaviour
     public SpriteRenderer warningSprite;
 
     public AudioClip bloodSplashSound;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip aircraftlying;
 
     private void Start()
     {
         StartCoroutine(ExecuteStrike());
+        audioSource = GetComponent<AudioSource>();
     }
 
     private IEnumerator ExecuteStrike()
@@ -43,6 +46,7 @@ public class AirstrikeZone : MonoBehaviour
             AircraftFlyBy fly = jet.GetComponent<AircraftFlyBy>();
             if (fly == null) fly = jet.AddComponent<AircraftFlyBy>();
             fly.Init(flySpeed, despawnX);
+            audioSource.PlayOneShot(aircraftlying);
         }
 
         // 1. Telegraph phase: Flash or scale the warning circle

@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossAirstrikeSkill : MonoBehaviour
@@ -18,6 +19,10 @@ public class BossAirstrikeSkill : MonoBehaviour
     public float timeBetweenBombs = 0.4f;
     public float randomSpread = 0.5f;
 
+    [Header("Sound")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip callingSound;
+    [SerializeField] private AudioClip boomSound; 
     public bool isCalling { get; private set; }
     public bool IsReady => !isCalling && skillCounter <= 0f;
 
@@ -26,6 +31,7 @@ public class BossAirstrikeSkill : MonoBehaviour
     void Awake()
     {
         skillCounter = skillCooldown;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -40,6 +46,7 @@ public class BossAirstrikeSkill : MonoBehaviour
         isCalling = true;
         strikeStarted = false;
         skillCounter = skillCooldown;
+        audioSource.PlayOneShot(callingSound);
     }
 
     // Called by the Animation Event in the bossCalling clip
@@ -71,5 +78,7 @@ public class BossAirstrikeSkill : MonoBehaviour
         Vector2 finalSpawnPos = predictedPos + Random.insideUnitCircle * randomSpread;
 
         Instantiate(airstrikeZonePrefab, finalSpawnPos, Quaternion.identity);
+
+        audioSource.PlayOneShot(boomSound);
     }
 }

@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // Moves the aircraft from right to left, then destroys it once it is off-screen.

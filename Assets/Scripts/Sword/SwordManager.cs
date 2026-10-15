@@ -21,8 +21,14 @@ public class SwordManager : MonoBehaviour
     private Collider2D swordCollider;
     [SerializeField] private Animator swordAnimator;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip swordImpactedSound;
+    [SerializeField] private AudioClip wallImpactedSound;
+
+
     private SpriteRenderer spriteRenderer;
     private Vector2 flyDirection = Vector2.right;
+
     private float flyTimer;
     private float stopTimer;
 
@@ -30,6 +36,7 @@ public class SwordManager : MonoBehaviour
     {
         swordCollider = GetComponent<Collider2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -61,6 +68,7 @@ public class SwordManager : MonoBehaviour
             if (PlayerMovement.Instance != null)
             {
                 PlayerMovement.Instance.ApplySlowDown(slowMultiplier, slowDuration);
+                audioSource.PlayOneShot(swordImpactedSound);
             }
 
             StopHere();
@@ -68,6 +76,7 @@ public class SwordManager : MonoBehaviour
         if (collision.gameObject.CompareTag("map"))
         {
             StopHere();
+            audioSource.PlayOneShot(wallImpactedSound);
         }
     }
 
