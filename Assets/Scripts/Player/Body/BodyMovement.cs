@@ -7,7 +7,27 @@ public class BodyMovement : MonoBehaviour
     private Camera mainCamera;
 
     private float nextFireTime;
-    public bool isDead;
+    [Header("Immortal Skill (press E)")]
+    [SerializeField] private float immortalDuration = 0.2f;
+
+    public bool isImmortal { get; private set; }
+    private float immortalTimer;
+
+    /// <summary>1 = just activated, 0 = finished / inactive. Read by the HUD.</summary>
+    public float ImmortalRemaining01 => isImmortal ? Mathf.Clamp01(immortalTimer / immortalDuration) : 0f;
+
+    private bool _isDead;
+    // Every damage source does `BodyMovement.Instance.isDead = true`,
+    // so blocking it here makes the player immune to all of them.
+    public bool isDead
+    {
+        get => _isDead;
+        set
+        {
+            if (value && isImmortal) return;
+            _isDead = value;
+        }
+    }
 
     void Awake()
     {
@@ -27,6 +47,23 @@ public class BodyMovement : MonoBehaviour
 
     void Update()
     {
+        // Press E -> immortal for `immortalDuration` seconds
+        if (!isDead && !isImmortal && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            isImmortal = true;
+            immortalTimer = immortalDuration;
+        }
+
+        if (isImmortal)
+        {
+            immortalTimer -= Time.deltaTime;
+            if (immortalTimer <= 0f)
+            {
+                immortalTimer = 0f;
+                isImmortal = false;
+            }
+        }
+
         if (isDead) return;
         HandleAiming();
     }
