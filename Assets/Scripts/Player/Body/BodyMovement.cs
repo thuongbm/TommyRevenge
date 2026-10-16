@@ -9,12 +9,21 @@ public class BodyMovement : MonoBehaviour
     private float nextFireTime;
     [Header("Immortal Skill (press E)")]
     [SerializeField] private float immortalDuration = 0.2f;
+    [SerializeField] private float cooldownDuration = 5f;
 
     public bool isImmortal { get; private set; }
     private float immortalTimer;
 
     /// <summary>1 = just activated, 0 = finished / inactive. Read by the HUD.</summary>
     public float ImmortalRemaining01 => isImmortal ? Mathf.Clamp01(immortalTimer / immortalDuration) : 0f;
+    private float cooldownTimer;
+
+    /// <summary>True when the skill can be used (not active and not cooling down).</summary>
+    public bool IsReady => !isImmortal && cooldownTimer <= 0f;
+
+    /// <summary>1 = just used, 0 = ready again. Read by the HUD.</summary>
+    public float CooldownRemaining01 => cooldownDuration <= 0f ? 0f : Mathf.Clamp01(cooldownTimer / cooldownDuration);
+
 
     private bool _isDead;
     // Every damage source does `BodyMovement.Instance.isDead = true`,
@@ -47,11 +56,16 @@ public class BodyMovement : MonoBehaviour
 
     void Update()
     {
-        // Press E -> immortal for `immortalDuration` seconds
-        if (!isDead && !isImmortal && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+        // Cooldown tick
+        if (cooldownTimer > 0f)
+            cooldownTimer = Mathf.Max(0f, cooldownTimer - Time.deltaTime);
+
+        // Press E -> immortal for `immortalDuration` seconds, then wait for the cooldown
+        if (!isDead && IsReady && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
             isImmortal = true;
             immortalTimer = immortalDuration;
+            cooldownTimer = cooldownDuration;
         }
 
         if (isImmortal)
