@@ -10,7 +10,7 @@ public class LevelButtonUI : MonoBehaviour
 
     public void SetUp(LevelSO levelSO, bool isUnlocked)
     {
-        lableText.text = levelSO.name;
+        lableText.text = levelSO.levelName;
         button.interactable = isUnlocked;
 
         button.onClick.RemoveAllListeners();

@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea04e8ebd6aa244baf108c11ef6d774, type: 3}
   m_Name: Level3
   m_EditorClassIdentifier: Assembly-CSharp::LevelSO
-  name: Level 3
+  levelName: Level 3
   sceneToLoad: Chapter1_Level3
   enemyTotal: 30
   parTime: 60
-  isUnlockedByDefault: 
+  isUnlockedByDefault: 0
+  scoreAPlus: 3500
+  scoreA: 2800
+  scoreBPlus: 2200
+  scoreB: 1700
+  scoreCPlus: 1300
