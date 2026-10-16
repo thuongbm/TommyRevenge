@@ -7,6 +7,9 @@ public class WinScreenManager : MonoBehaviour
     [SerializeField] private TMPro.TextMeshProUGUI scoreText;
     [SerializeField] private TMPro.TextMeshProUGUI timeText;
 
+    [Tooltip("Seconds to wait after the last kill before the panel appears (lets the death animation play). 0 = instant")]
+    [SerializeField] private float showDelay = 0.8f;
+
     void OnEnable()
     {
         LevelManager.OnLevelWon += ShowWinPanel;
@@ -19,6 +22,19 @@ public class WinScreenManager : MonoBehaviour
 
     private void ShowWinPanel()
     {
+        StartCoroutine(ShowAfterDelay());
+    }
+
+    private System.Collections.IEnumerator ShowAfterDelay()
+    {
+        if (showDelay > 0f) yield return new WaitForSeconds(showDelay);
+        ShowNow();
+    }
+
+    private void ShowNow()
+    {
+        GameFreeze.Freeze();
+
         if (winPanel != null)
         {
             winPanel.SetActive(true);
@@ -40,6 +56,9 @@ public class WinScreenManager : MonoBehaviour
     public void RetryLevel()
     {
         Time.timeScale = 1f;
+        // Reset the run so kill counter / score / timer start fresh
+        LevelStatus.ResetRun();
+        LevelManager.TotalEnemies(LevelManager.totalEnemies, LevelManager.parTime);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

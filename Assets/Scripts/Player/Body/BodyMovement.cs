@@ -26,6 +26,9 @@ public class BodyMovement : MonoBehaviour
 
 
     private bool _isDead;
+
+    /// <summary>Fired once when the player dies (used by the lose screen).</summary>
+    public static event System.Action OnPlayerDied;
     // Every damage source does `BodyMovement.Instance.isDead = true`,
     // so blocking it here makes the player immune to all of them.
     public bool isDead
@@ -34,7 +37,9 @@ public class BodyMovement : MonoBehaviour
         set
         {
             if (value && isImmortal) return;
+            bool justDied = value && !_isDead;
             _isDead = value;
+            if (justDied && OnPlayerDied != null) OnPlayerDied();
         }
     }
 
