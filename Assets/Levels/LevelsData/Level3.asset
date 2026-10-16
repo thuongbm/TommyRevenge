@@ -17,8 +17,8 @@ MonoBehaviour:
   enemyTotal: 30
   parTime: 60
   isUnlockedByDefault: 0
-  scoreAPlus: 3500
-  scoreA: 2800
-  scoreBPlus: 2200
-  scoreB: 1700
-  scoreCPlus: 1300
+  scoreAPlus: 12000
+  scoreA: 9000
+  scoreBPlus: 6500
+  scoreB: 4800
+  scoreCPlus: 3500

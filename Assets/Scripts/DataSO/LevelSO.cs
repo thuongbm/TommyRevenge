@@ -8,6 +8,7 @@ public class LevelSO : ScriptableObject
     public string sceneToLoad;
     public int enemyTotal;
     public float parTime = 60f;
+
     public bool isUnlockedByDefault;
 
     [Header("Rank Thresholds (minimum score per grade)")]
