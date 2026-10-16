@@ -7,6 +7,8 @@ public class ComboManager : MonoBehaviour
 
     [SerializeField] private float comboWindow = 3f;
     [SerializeField] private int baseKillScore = 100;
+    [Tooltip("Flat points for every bullet that hits a boss (boss takes many hits, so each hit scores)")]
+    [SerializeField] private int bossHitScore = 50;
 
     private static readonly Color[] PopupPalette = new Color[]
     {
@@ -74,6 +76,17 @@ public void RegisterKill(Vector3 killPosition)
         ComboMultiplier = 1;
         ComboTimeRemaining = 0f;
         OnComboBroken?.Invoke();
+    }
+
+    // Score for one bullet hitting a boss. Flat points + popup; doesn't touch the combo multiplier.
+    public void RegisterBossHit(Vector3 hitPosition)
+    {
+        if (bossHitScore <= 0) return;
+        ScoreManager.AddScore(bossHitScore);
+
+        Color popupColor = PopupPalette[popupColorIndex % PopupPalette.Length];
+        popupColorIndex++;
+        ScorePopup.Create(hitPosition, bossHitScore, popupColor);
     }
 
     public void ResetCombo()

@@ -26,7 +26,12 @@ public class BulletManager : MonoBehaviour
             BossHealth bossHealth = collision.gameObject.GetComponent<BossHealth>();
             if (bossHealth != null)
             {
-                if (!bossHealth.isDead) bossHealth.TakeDamage(1);
+                if (!bossHealth.isDead)
+                {
+                    bossHealth.TakeDamage(1);
+                    if (ComboManager.Instance != null)
+                        ComboManager.Instance.RegisterBossHit(transform.position);
+                }
 
                 BloodManage bossBlood = collision.gameObject.GetComponent<BloodManage>();
                 if (bossBlood != null) bossBlood.BloodSpalsh();

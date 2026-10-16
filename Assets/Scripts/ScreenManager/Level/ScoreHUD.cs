@@ -25,12 +25,14 @@ public class ScoreHUD : MonoBehaviour
     void OnEnable()
     {
         ComboManager.OnComboIncreased += HandleComboIncreased;
+        ScoreManager.OnScoreChanged += UpdateScoreText;
         UpdateScoreText();
     }
 
     void OnDisable()
     {
         ComboManager.OnComboIncreased -= HandleComboIncreased;
+        ScoreManager.OnScoreChanged -= UpdateScoreText;
     }
 
     void HandleComboIncreased(int multiplier)
