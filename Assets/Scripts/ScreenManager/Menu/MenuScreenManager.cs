@@ -50,9 +50,12 @@ public class MenuScreenManager : MonoBehaviour
 
     public void OpenChapterScreen()
     {
-        chapterScreen.SetActive(true);
-        PopulateChapter();
-        gameObject.SetActive(false);
+        LevelLoader.PlayTransition(() =>
+        {
+            chapterScreen.SetActive(true);
+            PopulateChapter();
+            gameObject.SetActive(false);
+        });
     }
 
     public void QuitButton()

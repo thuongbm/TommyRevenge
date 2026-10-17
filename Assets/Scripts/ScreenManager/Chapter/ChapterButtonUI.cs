@@ -14,6 +14,7 @@ public class ChapterButtonUI : MonoBehaviour
         button.interactable = isUnlocked;
 
         button.onClick.RemoveAllListeners();
+
         button.onClick.AddListener(() =>
         {
             onChapterClicked?.Invoke(chapterSO);

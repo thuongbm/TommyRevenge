@@ -11,10 +11,13 @@ public class ChapterScreenManager : MonoBehaviour
     // Called when a chapter button is pressed
     public void OpenLevelScreen(ChapterSO selectedChapter)
     {
-        levelScreen.SetActive(true);
-        gameObject.SetActive(false);
+        LevelLoader.PlayTransition(() =>
+        {
+            levelScreen.SetActive(true);
+            gameObject.SetActive(false);
 
-        PopulateLevel(selectedChapter.levels);
+            PopulateLevel(selectedChapter.levels);
+        });
     }
 
     public void PopulateLevel(List<LevelSO> levels)

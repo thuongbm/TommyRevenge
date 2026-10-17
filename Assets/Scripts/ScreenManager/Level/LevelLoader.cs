@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,9 +18,9 @@ public class LevelLoader : MonoBehaviour
             animator = GetComponentInChildren<Animator>();
     }
 
+    // Fade to black, then load a scene (level select -> gameplay)
     public static void LoadTheLevel(string sceneToLoad)
     {
-        // No loader in this scene -> just load without the effect
         if (Instance == null)
         {
             SceneManager.LoadScene(sceneToLoad);
@@ -30,15 +31,43 @@ public class LevelLoader : MonoBehaviour
         Instance.StartCoroutine(Instance.LevelTransition(sceneToLoad));
     }
 
+    // Fade to black, run your code while the screen is covered, then fade back in.
+    // Use this for ANY screen/panel switch inside the same scene
+    // (menu -> chapters, chapters -> levels, back buttons...).
+    public static void PlayTransition(Action onScreenCovered)
+    {
+        if (Instance == null)
+        {
+            onScreenCovered?.Invoke();
+            return;
+        }
+
+        if (Instance.isLoading) return;
+        Instance.StartCoroutine(Instance.PanelTransition(onScreenCovered));
+    }
+
     IEnumerator LevelTransition(string sceneToLoad)
     {
         isLoading = true;
 
-        // Plays the fade-to-black ONLY now (when a level is chosen)
         animator.SetTrigger("Start");
-
         yield return new WaitForSecondsRealtime(transitionTime);
 
         SceneManager.LoadScene(sceneToLoad);
+    }
+
+    IEnumerator PanelTransition(Action onScreenCovered)
+    {
+        isLoading = true;
+
+        animator.SetTrigger("Start");                 // fade to black
+        yield return new WaitForSecondsRealtime(transitionTime);
+
+        onScreenCovered?.Invoke();                      // swap the screens while it's black
+
+        animator.SetTrigger("End");                   // fade back in
+        yield return new WaitForSecondsRealtime(transitionTime);
+
+        isLoading = false;                              // allow the next click
     }
 }

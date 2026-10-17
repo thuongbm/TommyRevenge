@@ -25,7 +25,6 @@ public class LevelButtonUI : MonoBehaviour
 
             LevelLoader.LoadTheLevel(levelSO.sceneToLoad);
 
-            // SceneManager.LoadScene(levelSO.sceneToLoad);
         });
     } 
 }
