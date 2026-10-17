@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -22,7 +23,9 @@ public class LevelButtonUI : MonoBehaviour
 
             LevelManager.TotalEnemies(levelSO.enemyTotal, levelSO.parTime);
 
-            SceneManager.LoadScene(levelSO.sceneToLoad);
+            LevelLoader.LoadTheLevel(levelSO.sceneToLoad);
+
+            // SceneManager.LoadScene(levelSO.sceneToLoad);
         });
     } 
 }
