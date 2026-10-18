@@ -15,7 +15,5 @@ MonoBehaviour:
   lines:
   - name: Lilys
     sentences:
-    - Welcome
-    - You need to "WASD" to moverment
-    - Hover and click left mouse to fire
-    - Good luck!
+    - 'This place the room where thuong is the boss, he is a dangerous crime '
+    - Take care pls

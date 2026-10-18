@@ -74,10 +74,18 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+// Skip button: drop whatever is left of the conversation and finish right away
+    public void SkipDialogue()
+    {
+        dialogueBlocks.Clear();
+        currentSentences.Clear();
+        EndDialogue();
+    }
+
     public void EndDialogue()
     {
         dialogueScreen.SetActive(false);
-        
+
         onDialogueComplete?.Invoke();
         onDialogueComplete = null;
     }
