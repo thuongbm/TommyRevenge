@@ -18,17 +18,20 @@ public class LevelLoader : MonoBehaviour
             animator = GetComponentInChildren<Animator>();
     }
 
-    // Fade to black, then load a scene (level select -> gameplay)
-    public static void LoadTheLevel(string sceneToLoad)
+    // Fade to black, then load a scene (level select -> gameplay, retry, back to menu...).
+    // beforeLoad (optional) runs while the screen is black, right before the scene loads.
+    public static void LoadTheLevel(string sceneToLoad, Action beforeLoad = null)
     {
         if (Instance == null)
         {
+            Time.timeScale = 1f;
+            beforeLoad?.Invoke();
             SceneManager.LoadScene(sceneToLoad);
             return;
         }
 
         if (Instance.isLoading) return; // ignore double clicks
-        Instance.StartCoroutine(Instance.LevelTransition(sceneToLoad));
+        Instance.StartCoroutine(Instance.LevelTransition(sceneToLoad, beforeLoad));
     }
 
     // Fade to black, run your code while the screen is covered, then fade back in.
@@ -46,13 +49,15 @@ public class LevelLoader : MonoBehaviour
         Instance.StartCoroutine(Instance.PanelTransition(onScreenCovered));
     }
 
-    IEnumerator LevelTransition(string sceneToLoad)
+    IEnumerator LevelTransition(string sceneToLoad, Action beforeLoad)
     {
         isLoading = true;
 
         animator.SetTrigger("Start");
         yield return new WaitForSecondsRealtime(transitionTime);
 
+        Time.timeScale = 1f;            // the win/lose panels freeze the game; unfreeze only now
+        beforeLoad?.Invoke();
         SceneManager.LoadScene(sceneToLoad);
     }
 

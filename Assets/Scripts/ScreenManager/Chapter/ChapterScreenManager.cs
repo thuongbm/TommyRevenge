@@ -46,9 +46,22 @@ public class ChapterScreenManager : MonoBehaviour
         }
     }
 
-    public void BackToChapterScreen()
+public void BackToChapterScreen()
     {
-        levelScreen.SetActive(false);
-        gameObject.SetActive(true);
+        LevelLoader.PlayTransition(() =>
+        {
+            levelScreen.SetActive(false);
+            gameObject.SetActive(true);
+        });
+    }
+
+    // Chapter screen -> Main menu
+    public void BackToMenu()
+    {
+        LevelLoader.PlayTransition(() =>
+        {
+            menuScreenManager.gameObject.SetActive(true);
+            gameObject.SetActive(false);
+        });
     }
 }

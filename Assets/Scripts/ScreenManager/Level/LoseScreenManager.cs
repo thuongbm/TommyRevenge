@@ -55,18 +55,16 @@ public class LoseScreenManager : MonoBehaviour
 
     public void RetryLevel()
     {
-        Time.timeScale = 1f;
-
-        // Reset the run (kill counter, timer, score, combo) before reloading
-        LevelStatus.ResetRun();
-        LevelManager.TotalEnemies(LevelManager.totalEnemies, LevelManager.parTime);
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        LevelLoader.LoadTheLevel(SceneManager.GetActiveScene().name, () =>
+        {
+            // Reset the run (kill counter, timer, score, combo) right before reloading
+            LevelStatus.ResetRun();
+            LevelManager.TotalEnemies(LevelManager.totalEnemies, LevelManager.parTime);
+        });
     }
 
     public void BackToMenu()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("0");
+        LevelLoader.LoadTheLevel("0");
     }
 }
