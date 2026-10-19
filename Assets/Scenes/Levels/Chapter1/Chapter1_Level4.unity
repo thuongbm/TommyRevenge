@@ -496,7 +496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ComboManager
   comboWindow: 3
   baseKillScore: 100
-  bossHitScore: 50
+  bossHitScore: 15
 --- !u!4 &132139928
 Transform:
   m_ObjectHideFlags: 0
@@ -1206,8 +1206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b11211983e35219479219dc2585dc231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FieldOfView2D
-  radius: 4.92
-  angle: 90
+  radius: 15.75
+  angle: 360
   eyeOffset: {x: 0, y: 0.01}
   viewDirectionOffset: 271.9
   playerRef: {fileID: 315082965}
@@ -1513,7 +1513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PinkmanRoundAndRound
   skillIndex: 1
   skillCounter: 0
-  skillCooldown: 10
+  skillCooldown: 12
   skillECircle: {fileID: 1756958917}
   spinDuration: 3
   spinSpeedMultiplier: 1.6
@@ -1534,7 +1534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PinkManThrowSword
   throwPoint: {fileID: 886904825}
   swordPrefab: {fileID: 1884799904147297653, guid: a727e533310cd4b4bab8245b80d96d36, type: 3}
-  skillCoolDown: 8
+  skillCoolDown: 10
   maxThrowRange: 10
   minThrowRange: 2
 --- !u!114 &320266612
@@ -1573,7 +1573,7 @@ MonoBehaviour:
   playerTransform: {fileID: 315082968}
   playerRb: {fileID: 315082970}
   airstrikeZonePrefab: {fileID: 8716582700824198868, guid: 598cc753a3122c54ab2c1e151a70669a, type: 3}
-  skillCooldown: 10
+  skillCooldown: 12
   skillCounter: 0
   predictionTime: 1
   bombCount: 3
@@ -1594,7 +1594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc836446cd5d71c4c94a0b57e58ee68c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossHealth
-  maxHealth: 20
+  maxHealth: 70
   spriteRenderer: {fileID: 0}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   hitFlashTime: 0.08

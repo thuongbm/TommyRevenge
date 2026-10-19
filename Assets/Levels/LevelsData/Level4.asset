@@ -15,7 +15,7 @@ MonoBehaviour:
   levelName: Level 4
   sceneToLoad: Chapter1_Level4
   enemyTotal: 1
-  parTime: 60
+  parTime: 130
   isUnlockedByDefault: 0
   scoreAPlus: 1600
   scoreA: 1500
