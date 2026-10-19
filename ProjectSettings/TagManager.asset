@@ -29,7 +29,7 @@ TagManager:
   - Sword
   - Explosion
   - Aircraft
-  - 
+  - Redzone
   - 
   - 
   - 
@@ -49,6 +49,9 @@ TagManager:
     locked: 0
   - name: Map
     uniqueID: 2195653671
+    locked: 0
+  - name: Redzone
+    uniqueID: 560950019
     locked: 0
   - name: Sword
     uniqueID: 2114470319

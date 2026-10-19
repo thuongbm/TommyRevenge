@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6869912258154502060}
   - component: {fileID: 3863244776653359927}
   - component: {fileID: -3502753226792935699}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: RedZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,8 +79,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 560950019
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2958032417680527143, guid: 9cfd74394d61bbd49a188ef409a08abc, type: 3}
