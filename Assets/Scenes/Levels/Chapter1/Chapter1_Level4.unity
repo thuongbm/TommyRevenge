@@ -918,7 +918,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &315082971
 SpriteRenderer:
   serializedVersion: 2
@@ -1363,7 +1363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba301d035792fc94584da41f1d23afe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossMoverment
-  speed: 3
+  speed: 4
   stopDistance: 2
   rotationSpeed: 360
   spinStopDistance: 0.5
@@ -1577,7 +1577,7 @@ MonoBehaviour:
   skillCooldown: 12
   skillCounter: 0
   predictionTime: 1
-  bombCount: 3
+  bombCount: 6
   timeBetweenBombs: 0.4
   randomSpread: 0.5
   audioSource: {fileID: 320266609}
